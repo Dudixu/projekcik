@@ -48,9 +48,9 @@
  logic  [11:0] logo_addr;
  logic  [63:0]  char_pixels;
  logic  [10:0] char_addr;
-// logic  [7:0]  char_xy;
- //logic  [6:0]  char_code;
- //logic  [3:0]  char_line;
+ logic  [7:0]  char_xy;
+ logic  [5:0]  char_code;
+ logic  [4:0]  char_line;
  
  /**
   * Signals assignments
@@ -83,13 +83,18 @@ draw_rect_char u_draw_rect_char (
     .vga_in(vga_bg),
     .vga_out(vga_rect_char),
     .char_pixels(char_pixels),
-    .char_addr(char_addr)
+    .char_xy(char_xy),
+    .char_line(char_line)
 );
-/*char_rom_16x16 u_char_rom_16x16(
-    .clk(clk_40),
+char_rom_16x16 u_char_rom_16x16(
+    .clk(clk_65),
     .char_xy(char_xy),
     .char_code(char_code)
-);*/
+);
+always_comb begin
+    char_addr = {char_code, char_line};
+end
+
 draw_rect u_draw_rect (
     .clk(clk_65),
     .rst,
@@ -129,7 +134,7 @@ MouseCtl u_MouseCtl(
     .setmax_x('0),
     .setmax_y('0)
     );
-always_ff @(posedge clk_65 begin
+always_ff @(posedge clk_65) begin
     xpos_buf_out <= xpos_buf_in;
     ypos_buf_out <= ypos_buf_in;
 end

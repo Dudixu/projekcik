@@ -28,8 +28,8 @@ localparam VER_BLANK_END = 806;
 localparam RECT_LENGTH = 48;
 localparam RECT_HEIGHT = 64;
 
-localparam CHAR_HEIGHT = 256;
-localparam CHAR_LENGTH = 128;
-localparam CHAR_X = 0;
-localparam CHAR_Y = 0;
+localparam CHAR_HEIGHT = 512;
+localparam CHAR_LENGTH = 512;
+localparam CHAR_X = 256;
+localparam CHAR_Y = 128;
 endpackage
