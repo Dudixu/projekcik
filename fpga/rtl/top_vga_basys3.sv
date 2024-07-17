@@ -35,7 +35,7 @@ module top_vga_basys3 (
 wire locked;
 wire pclk_mirror;
 wire clk_100;
-wire clk_40;
+wire clk_65;
 
 /**
  * Signals assignments
@@ -61,7 +61,7 @@ clk_wiz_0 u_clk_wiz_0 (
     .clk(clk),
     .locked(locked),
     .clk100MHz(clk_100),
-    .clk40MHz(clk_40)
+    .clk65MHz(clk_65)
 );
 
 /**
@@ -69,7 +69,7 @@ clk_wiz_0 u_clk_wiz_0 (
  */
 
 top_vga u_top_vga (
-    .clk_40,
+    .clk_65,
     .clk_100,
     .ps2_data(PS2Data),
     .ps2_clk(PS2Clk),

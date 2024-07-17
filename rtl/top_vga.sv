@@ -14,7 +14,7 @@
 
  `timescale 1 ns / 1 ps
  module top_vga (
-     input  logic clk_40,
+     input  logic clk_65,
      input  logic clk_100,
      inout  logic ps2_clk,
      inout  logic ps2_data,
@@ -66,19 +66,19 @@
   */
  
  vga_timing u_vga_timing (
-     .clk(clk_40),
+     .clk(clk_65),
      .rst,
      .vga_out(vga_tim)
  );
 
 draw_bg u_draw_bg (
-    .clk(clk_40),
+    .clk(clk_65),
     .rst,
     .vga_in(vga_tim),
     .vga_out(vga_bg)
 );
 draw_rect_char u_draw_rect_char (
-    .clk(clk_40),
+    .clk(clk_65),
     .rst,
     .vga_in(vga_bg),
     .vga_out(vga_rect_char),
@@ -91,7 +91,7 @@ draw_rect_char u_draw_rect_char (
     .char_code(char_code)
 );*/
 draw_rect u_draw_rect (
-    .clk(clk_40),
+    .clk(clk_65),
     .rst,
     .vga_in(vga_rect_char),
     .vga_out(vga_rect),
@@ -101,7 +101,7 @@ draw_rect u_draw_rect (
     .pixel_addr(logo_addr)
 );
 draw_rect_ctl u_draw_rect_ctl(
-    .clk(clk_40),
+    .clk(clk_65),
     .rst,
     .vga_in(vga_rect_char),
     .mouse_left(mouse_left),
@@ -129,13 +129,13 @@ MouseCtl u_MouseCtl(
     .setmax_x('0),
     .setmax_y('0)
     );
-always_ff @(posedge clk_40) begin
+always_ff @(posedge clk_65 begin
     xpos_buf_out <= xpos_buf_in;
     ypos_buf_out <= ypos_buf_in;
 end
 
 draw_mouse u_draw_mouse(
-    .clk(clk_40),
+    .clk(clk_65),
     .rst,
     .vga_in(vga_rect),
     .vga_out(mouse_out),
@@ -143,12 +143,12 @@ draw_mouse u_draw_mouse(
     .ypos(ypos_buf_out)
 );
 figure_rom u_figure_rom(
-    .clk(clk_40),    
+    .clk(clk_65),    
     .addr(char_addr),
     .char_line_pixels(char_pixels)
 );
 image_rom u_image_rom(
-    .clk(clk_40),
+    .clk(clk_65),
     .address(logo_addr),
     .rgb(logo_rgb)
 );
