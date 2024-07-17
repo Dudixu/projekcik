@@ -25,7 +25,11 @@ import vga_pkg::*;
  */
 
 logic [11:0] rgb_nxt;
+<<<<<<< HEAD
 localparam LIGHT_COLOR = 12'h5_8_5;
+=======
+localparam LIGHT_COLOR = 12'h7_C_7;
+>>>>>>> dd509822ff1b4c1239fcc7496a7847438883675f
 localparam DARK_COLOR = 12'hF_F_C;
 
 /**
@@ -65,6 +69,7 @@ always_comb begin : bg_comb_blk
         else if (vga_in.hcount == HOR_PIXELS - 1)   // - right edge:
             rgb_nxt = 12'h0_0_f;                // - - make a blue line
         // Add your code here.
+<<<<<<< HEAD
         //else if(vga_in.hcount%64 <= 1 & (vga_in.vcount%64 <= 1))
         //      rgb_nxt = 12'h0_0_0;
         
@@ -84,6 +89,12 @@ always_comb begin : bg_comb_blk
             else
                 rgb_nxt = LIGHT_COLOR;
         
+=======
+        // Pola
+        else if ((vga_in.hcount >= 256 & vga_in.hcount <= 768 & vga_in.vcount >= 128 & vga_in.vcount <= 640))
+            if((vga_in.hcount - 256)%128 <= 64 & (vga_in.vcount)%128 <= 64)
+                rgb_nxt = LIGHT_COLOR;
+>>>>>>> dd509822ff1b4c1239fcc7496a7847438883675f
         else                                    // The rest of active display pixels:
             rgb_nxt = 12'h8_8_8;                // - fill with gray.
     end
