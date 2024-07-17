@@ -25,7 +25,8 @@ import vga_pkg::*;
  */
 
 logic [11:0] rgb_nxt;
-localparam LETTER_COLOR = 12'hB_D_7;;
+localparam LIGHT_COLOR = 12'h7_C_7;
+localparam DARK_COLOR = 12'hF_F_C;
 
 /**
  * Internal logic
@@ -64,43 +65,10 @@ always_comb begin : bg_comb_blk
         else if (vga_in.hcount == HOR_PIXELS - 1)   // - right edge:
             rgb_nxt = 12'h0_0_f;                // - - make a blue line
         // Add your code here.
-        else if ((vga_in.hcount >= 230 & vga_in.hcount <= 350 & vga_in.vcount >= 100 & vga_in.vcount <= 220) & ((vga_in.hcount - 230)*(vga_in.hcount - 230))+((vga_in.vcount - 220)*(vga_in.vcount - 220)) <= 14400 & ((vga_in.hcount - 230)*(vga_in.hcount - 230))+((vga_in.vcount - 220)*(vga_in.vcount - 220)) >= 6400)
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 230 & vga_in.hcount <= 350 & vga_in.vcount >= 380 & vga_in.vcount <= 500) & ((vga_in.hcount - 230)*(vga_in.hcount - 230))+((vga_in.vcount - 380)*(vga_in.vcount - 380)) <= 14400 & ((vga_in.hcount - 230)*(vga_in.hcount - 230))+((vga_in.vcount - 380)*(vga_in.vcount - 380)) >= 6400)
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 310 & vga_in.hcount <= 350 & vga_in.vcount >= 220 & vga_in.vcount <= 380))
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 140 & vga_in.hcount <= 230 & vga_in.vcount >= 100 & vga_in.vcount <= 140))
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 140 & vga_in.hcount <= 230 & vga_in.vcount >= 460 & vga_in.vcount <= 500))
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 100 & vga_in.hcount <= 140 & vga_in.vcount >= 100 & vga_in.vcount <= 500))
-            rgb_nxt = LETTER_COLOR;
-        else if ((((vga_in.hcount-1)%4) >= 2 & vga_in.hcount <= 140 & vga_in.vcount >= 100 & vga_in.vcount <= 500))
-            rgb_nxt = 12'h0_0_0;
-        else if ((vga_in.hcount == 65 ))
-            rgb_nxt = LETTER_COLOR;
-            // Litera M ukos
-        else if ((vga_in.hcount >= 450 & vga_in.hcount <= 490 & vga_in.vcount >= 100 & vga_in.vcount <= 500))
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 660 & vga_in.hcount <= 700 & vga_in.vcount >= 100 & vga_in.vcount <= 500))
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 490 & vga_in.hcount <= 575 & vga_in.hcount >= vga_in.vcount + 340 & vga_in.hcount <= vga_in.vcount + 390))
-            rgb_nxt = LETTER_COLOR;
-        else if ((vga_in.hcount >= 575 & vga_in.hcount <= 660 & vga_in.hcount + vga_in.vcount <= 810 & vga_in.hcount + vga_in.vcount >= 760))
-            rgb_nxt = LETTER_COLOR; 
-        
-            /*/ //Litera M zaoblona
-        else if ((vga_in.hcount >= 450 & vga_in.hcount <= 575 & vga_in.vcount >= 100 & vga_in.vcount <= 174) & ((vga_in.hcount - 522)*(vga_in.hcount - 522))+((vga_in.vcount - 174)*(vga_in.vcount - 174)) <= 5476 & ((vga_in.hcount - 522)*(vga_in.hcount - 522))+((vga_in.vcount - 174)*(vga_in.vcount - 174)) >= 1156)
-            rgb_nxt = 12'h0_4_3;
-        else if ((vga_in.hcount >= 575 & vga_in.hcount <= 700 & vga_in.vcount >= 100 & vga_in.vcount <= 174) & ((vga_in.hcount - 626)*(vga_in.hcount - 626))+((vga_in.vcount - 174)*(vga_in.vcount - 174)) <= 5476 & ((vga_in.hcount - 626)*(vga_in.hcount - 626))+((vga_in.vcount - 174)*(vga_in.vcount - 174)) >= 1156)
-            rgb_nxt = 12'h0_4_3;
-        else if ((vga_in.hcount >= 450 & vga_in.hcount <= 488 & vga_in.vcount >= 174 & vga_in.vcount <= 500))
-            rgb_nxt = 12'h0_4_3;
-        else if ((vga_in.hcount >= 660 & vga_in.hcount <= 700 & vga_in.vcount >= 174 & vga_in.vcount <= 500))
-            rgb_nxt = 12'h0_4_3;
-        else if ((vga_in.hcount >= 556 & vga_in.hcount <= 592 & vga_in.vcount >= 174 & vga_in.vcount <= 300))
-            rgb_nxt = 12'h0_4_3; /*/
+        // Pola
+        else if ((vga_in.hcount >= 256 & vga_in.hcount <= 768 & vga_in.vcount >= 128 & vga_in.vcount <= 640))
+            if((vga_in.hcount - 256)%128 <= 64 & (vga_in.vcount)%128 <= 64)
+                rgb_nxt = LIGHT_COLOR;
         else                                    // The rest of active display pixels:
             rgb_nxt = 12'h8_8_8;                // - fill with gray.
     end

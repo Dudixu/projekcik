@@ -129,7 +129,7 @@ MouseCtl u_MouseCtl(
     .setmax_x('0),
     .setmax_y('0)
     );
-always_ff @(posedge clk_65 begin
+always_ff @(posedge clk_65) begin
     xpos_buf_out <= xpos_buf_in;
     ypos_buf_out <= ypos_buf_in;
 end
