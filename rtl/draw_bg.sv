@@ -68,17 +68,18 @@ always_comb begin : bg_comb_blk
         // Add your code here.
         //else if(vga_in.hcount%64 <= 1 & (vga_in.vcount%64 <= 1))
         //      rgb_nxt = 12'h0_0_0;
-        
+         // else if(vga_in.hcount%8 == 0)
+           //     rgb_nxt = 12'h0_0_0;
         // Ramka
         else if ((vga_in.hcount >= 224 & vga_in.hcount < 256) & vga_in.vcount >= 96 & vga_in.vcount < 672)
                 rgb_nxt = 12'h3_2_1;
         else if ((vga_in.hcount >= 768 & vga_in.hcount < 800) & vga_in.vcount >= 96 & vga_in.vcount < 672)
                 rgb_nxt = 12'h3_2_1;
         else if ((vga_in.hcount >= 256 & vga_in.hcount < 768) & vga_in.vcount >= 96 & vga_in.vcount < 128)
-            if(frame_pixels[7 - vga_in.hcount%8] == 0)
-                rgb_nxt = 12'h3_2_1;
-            else
+            if(frame_pixels[vga_in.hcount%8] == 1)
                 rgb_nxt = 12'hf_f_f;
+            else
+                rgb_nxt = 12'h3_2_1;
 
         else if ((vga_in.hcount >= 256 & vga_in.hcount < 768) & vga_in.vcount >= 640 & vga_in.vcount < 672)
                 rgb_nxt = 12'h3_2_1;
