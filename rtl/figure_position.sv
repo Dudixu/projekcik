@@ -1,9 +1,9 @@
 `timescale 1 ns / 1 ps
 
-module char_rom_16x16 (
+module figure_position (
     input  logic  clk,
-    input  logic [7:0] char_xy,
-    output logic [5:0] char_code
+    input  logic [7:0] figure_xy,
+    output logic [5:0] figure_code
 );
 
 import vga_pkg::*;
@@ -34,7 +34,7 @@ always_comb begin
 end*/
 always_ff @(posedge clk) begin
 
-    char_code <= 1;
+    figure_code <= 1;
 end
 
 endmodule

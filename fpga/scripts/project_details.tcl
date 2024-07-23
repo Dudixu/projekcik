@@ -40,11 +40,12 @@ set sv_files {
     ../rtl/vga_if.sv
     ../rtl/draw_rect.sv
     ../rtl/draw_mouse.sv
-    ../rtl/draw_rect_char.sv
+    ../rtl/draw_figure.sv
     ../rtl/figure_rom.sv
+    ../rtl/font_rom.sv
     ../rtl/delay.sv
     ../rtl/rect/image_rom.sv
-    ../rtl/char_rom_16x16.sv
+    ../rtl/figure_position.sv
     ../rtl/draw_rect_ctl.sv
     rtl/top_vga_basys3.sv
 }

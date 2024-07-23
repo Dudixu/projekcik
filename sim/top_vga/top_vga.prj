@@ -18,10 +18,12 @@ sv work ../../rtl/vga_pkg.sv \
         ../../rtl/top_vga.sv \
         ../../rtl/rect/image_rom.sv \
         ../../rtl/draw_mouse.sv \
-        ../../rtl/draw_rect_char.sv \
+        ../../rtl/draw_figure.sv \
         ../../rtl/figure_rom.sv \
+        ../../rtl/font_rom.sv \
+        ../../rtl/frame_letters.sv \
         ../../rtl/delay.sv \
-        ../../rtl/char_rom_16x16.sv \
+        ../../rtl/figure_position.sv \
         ../../rtl/clk_wiz_0.v \
         ../../rtl/clk_wiz_0_clk_wiz.v \
         ../../fpga/rtl/top_vga_basys3.sv \

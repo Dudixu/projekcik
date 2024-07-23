@@ -1,16 +1,10 @@
 `timescale 1ns / 1ps
-// ROM with synchonous read (inferring Block RAM)
-// character ROM
-//  - 8-by-16 (8-by-2^4) font
-//  - 128 (2^7) characters
-//  - ROM size: 512-by-8 (2^11-by-8) bits
-//              16K bits: 1 BRAM
 
 module figure_rom
     (
         input  logic        clk,
-        input  logic [10:0] addr,            // {char_code[5:0], char_line[4:0]}
-        output logic  [63:0] char_line_pixels // pixels of the character line
+        input  logic [10:0] addr,            // {figure_code[5:0], figure_line[4:0]}
+        output logic  [63:0] figure_line_pixels // pixels of the figure line
     );
 
     // signal declaration
@@ -18,7 +12,7 @@ module figure_rom
 
     // body
     always_ff @(posedge clk)
-        char_line_pixels <= data;
+        figure_line_pixels <= data;
     always_comb
         case (addr)
             //code x00 puste pole

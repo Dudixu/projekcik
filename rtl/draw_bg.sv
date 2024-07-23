@@ -13,6 +13,7 @@
 module draw_bg (
     input  logic clk,
     input  logic rst,
+    input  logic [7:0] frame_pixels,
     vga_if.in vga_in,    // Wejście interfejsu vga_if
     vga_if.out vga_out   // Wyjście interfejsu vga_if
 );
@@ -68,16 +69,20 @@ always_comb begin : bg_comb_blk
         //else if(vga_in.hcount%64 <= 1 & (vga_in.vcount%64 <= 1))
         //      rgb_nxt = 12'h0_0_0;
         
-        // Pola
+        // Ramka
         else if ((vga_in.hcount >= 224 & vga_in.hcount < 256) & vga_in.vcount >= 96 & vga_in.vcount < 672)
                 rgb_nxt = 12'h3_2_1;
         else if ((vga_in.hcount >= 768 & vga_in.hcount < 800) & vga_in.vcount >= 96 & vga_in.vcount < 672)
                 rgb_nxt = 12'h3_2_1;
         else if ((vga_in.hcount >= 256 & vga_in.hcount < 768) & vga_in.vcount >= 96 & vga_in.vcount < 128)
+            if(frame_pixels[7 - vga_in.hcount%8] == 0)
                 rgb_nxt = 12'h3_2_1;
+            else
+                rgb_nxt = 12'hf_f_f;
+
         else if ((vga_in.hcount >= 256 & vga_in.hcount < 768) & vga_in.vcount >= 640 & vga_in.vcount < 672)
                 rgb_nxt = 12'h3_2_1;
-        
+        // Pola
         else if ((vga_in.hcount >= 256 & vga_in.hcount < 768 & vga_in.vcount >= 128 & vga_in.vcount < 640))
             if((vga_in.hcount - 256)%128 <= 63 & (vga_in.vcount)%128 <= 63 | (vga_in.hcount - 256)%128 >= 64 & (vga_in.vcount)%128 >= 64)
                 rgb_nxt = DARK_COLOR;

@@ -1,13 +1,12 @@
 `timescale 1 ns / 1 ps
 
-module draw_rect_char (
+module draw_figure (
     input  logic clk,
     input  logic rst,
-    input  logic [63:0]  char_pixels,
-    output logic [7:0] char_xy,
-    output logic [4:0] char_line,
-    output logic [10:0]  char_addr,
-    vga_if.in vga_in,
+    input  logic [63:0]  figure_pixels,
+    output logic [7:0]   figure_xy,
+    output logic [4:0]   figure_line,
+    vga_if.in  vga_in,
     vga_if.out vga_out
 );
 
@@ -24,7 +23,7 @@ logic [11:0]   rgb_nxt;
 logic [10:0]   char_xy_buf;
 logic [10:0]   char_line_buf;
 logic [5:0]    char_code;
-logic [63:0]  char_pixels_ts;
+logic [63:0]   char_pixels_ts;
 /**
  * int1al logic
  */
