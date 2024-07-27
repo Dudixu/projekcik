@@ -9,14 +9,16 @@
 module font_rom
     (
         input  logic        clk,
-        input  logic [10:0] addr,            // {char_code[6:0], char_line[3:0]}
-        output logic  [7:0] char_line_pixels // pixels of the character line
+        input  logic [10:0] addr,             // {char_code[6:0], char_line[3:0]} //
+        output logic  [7:0] char_line_pixels  // pixels of the character line //
     );
 
-    // signal declaration
+    // SIGNAL DECLARATION ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     logic [7:0] data;
 
-    // body
+    // BODY /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
     always_ff @(posedge clk)
         char_line_pixels <= data;
 

@@ -21,7 +21,7 @@ sv work ../../rtl/vga_pkg.sv \
         ../../rtl/draw_figure.sv \
         ../../rtl/figure_rom.sv \
         ../../rtl/font_rom.sv \
-        ../../rtl/frame_letters.sv \
+        ../../rtl/bg_letters.sv \
         ../../rtl/delay.sv \
         ../../rtl/figure_position.sv \
         ../../rtl/clk_wiz_0.v \
@@ -29,7 +29,7 @@ sv work ../../rtl/vga_pkg.sv \
         ../../fpga/rtl/top_vga_basys3.sv \
         ../common/tiff_writer.sv \
         top_vga_tb.sv
-
+        
 # compile glbl module - required for IP simulation
 verilog work ../common/glbl.v
 

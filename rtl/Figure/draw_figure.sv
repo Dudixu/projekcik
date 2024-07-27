@@ -1,6 +1,18 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Company : AGH University of Krakow
+// Create Date : 23.07.2024
+// Designers Name : Dawid Mironiuk & Michał Malara
+// Module Name : draw_figure
+// Project Name : SZACHY - Projekt zaliczeniowy
+// Target Devices : BASYS3
+// 
+// Description : Moduł odpowiedzialny za rysowanie figur.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1 ns / 1 ps
 
-module draw_figure (
+module draw_figure 
+(
     input  logic clk,
     input  logic rst,
     input  logic [63:0]  figure_pixels,
@@ -12,9 +24,7 @@ module draw_figure (
 
 import vga_pkg::*;
 
-/**
- * Local variables and signals
- */
+// LOCAL VARIABLES AND SIGNALES ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 vga_if int1();
 vga_if int2();
@@ -24,9 +34,9 @@ logic [10:0]   char_xy_buf;
 logic [10:0]   char_line_buf;
 logic [5:0]    char_code;
 logic [63:0]   char_pixels_ts;
-/**
- * int1al logic
- */
+
+ // INITIAL LOGIC ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 always_ff @(posedge clk) begin
     if (rst) begin
         int1.vcount <= '0;
@@ -46,10 +56,12 @@ always_ff @(posedge clk) begin
         int1.rgb    <= vga_in.rgb;
     end
 end
+
 delay #(
     .WIDTH(38),
     .CLK_DEL(2)
-) u_delay(
+) u_delay
+(
     .clk(clk),
     .rst(rst),
     .din({vga_in.vcount, vga_in.vsync, vga_in.vblnk, vga_in.hcount, vga_in.hsync, vga_in.hblnk, vga_in.rgb}),
@@ -73,6 +85,7 @@ always_comb begin
 
     char_line = int1.vcount[5:1] - CHAR_Y[5:1];
 end
+
 always_comb begin
     if(((int2.hcount >= CHAR_X) & (int2.hcount < CHAR_LENGTH + CHAR_X) & (int2.vcount >= CHAR_Y) & (int2.vcount <= CHAR_Y + CHAR_HEIGHT)))    
         if((char_pixels[63 - (int2.hcount[10:1]*2 - CHAR_X)%64] == 1'b0) & (char_pixels[62 - (int2.hcount[10:1]*2 - CHAR_X)%64] == 1'b1)) begin    

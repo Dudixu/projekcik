@@ -13,7 +13,9 @@
  */
 
  `timescale 1 ns / 1 ps
- module top_vga (
+
+ module top_vga 
+ (
      input  logic clk_65,
      input  logic clk_100,
      inout  logic ps2_clk,
@@ -26,9 +28,9 @@
      output logic [3:0] b
  );
  
- /**
-  * Local variables and signals
-  */
+ 
+// LOCAL VARIABLES AND SIGNALS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
  vga_if vga_tim();
  vga_if vga_bg();
  vga_if vga_rect();
@@ -48,33 +50,29 @@
  logic  [11:0] logo_addr;
 
  logic  [10:0] char_addr;
+ logic  [7:0]  char_pixels;
 
  logic  [63:0] figure_pixels;
- logic  [10:0] figure_addr;
- logic  [7:0]  figure_xy;
- logic  [5:0]  figure_code;
+ logic  [8:0] figure_addr;
+ logic  [5:0]  figure_xy;
+ logic  [3:0]  figure_code;
  logic  [4:0]  figure_line;
  
- /**
-  * Signals assignments
-  */
- 
+ // SIGNALS ASSIGNMENTS ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
  assign vs = mouse_out.vsync;
  assign hs = mouse_out.hsync;
  assign {r,g,b} = mouse_out.rgb;
  
- 
- /**
-  * Submodules instances
-  */
- 
+ // SUBMODULES ISTANCES /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
  vga_timing u_vga_timing (
      .clk(clk_65),
      .rst,
      .vga_out(vga_tim)
  );
 
-frame_letters u_frame_letters(
+bg_letters u_bg_letters(
     .clk(clk_65),
     .rst,
     .vga_in(vga_tim),
@@ -154,6 +152,7 @@ MouseCtl u_MouseCtl(
     .setmax_x('0),
     .setmax_y('0)
     );
+
 always_ff @(posedge clk_65) begin
     xpos_buf_out <= xpos_buf_in;
     ypos_buf_out <= ypos_buf_in;

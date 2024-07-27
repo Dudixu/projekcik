@@ -1,21 +1,37 @@
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Company : AGH University of Krakow
+// Create Date : 23.07.2024
+// Designers Name : Dawid Mironiuk & Michał Malara
+// Module Name : figure_rom
+// Project Name : SZACHY - Projekt zaliczeniowy
+// Target Devices : BASYS3
+// 
+// Description : Moduł odpowiedzialny za wygląd czcionki figur.
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns / 1ps
 
 module figure_rom
     (
         input  logic        clk,
-        input  logic [10:0] addr,            // {figure_code[5:0], figure_line[4:0]}
-        output logic  [63:0] figure_line_pixels // pixels of the figure line
+        input  logic [10:0] addr,                 // {figure_code[5:0], figure_line[4:0]} //
+        output logic  [63:0] figure_line_pixels   // pixels of the figure line //
     );
 
-    // signal declaration
+    // SIGNAL DECLARATION //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     logic [63:0] data;
 
-    // body
-    always_ff @(posedge clk)
+    // BODY ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    always_ff @(posedge clk) begin
         figure_line_pixels <= data;
-    always_comb
+    end
+        
+    always_comb begin
         case (addr)
-            //code x00 puste pole
+
+            // CODE x00 PUSTE POLE //////////////
             11'h000: data = 64'h0000000000000000;
             11'h001: data = 64'h0000000000000000;
             11'h002: data = 64'h0000000000000000;
@@ -48,7 +64,7 @@ module figure_rom
             11'h01d: data = 64'h0000000000000000;
             11'h01e: data = 64'h0000000000000000;
             11'h01f: data = 64'h0000000000000000;
-            //code x01 PIONEK BIAŁY
+            // CODE x01 BIAŁY PIONEK ////////////
             11'h020: data = 64'h0000000000000000; 
             11'h021: data = 64'h0000000000000000;
             11'h022: data = 64'h0000000000000000;
@@ -81,7 +97,7 @@ module figure_rom
             11'h03d: data = 64'h0000055555500000;
             11'h03e: data = 64'h0000000000000000;
             11'h03f: data = 64'h0000000000000000;
-            //code x02 GONIEC BIAŁY           
+            // CODE x02 BIAŁY GONIEC //////////// 
             11'h040: data = 64'h0000000000000000;
             11'h041: data = 64'h0000000000000000;
             11'h042: data = 64'h0000000140000000;
@@ -114,7 +130,7 @@ module figure_rom
             11'h05d: data = 64'h0000555555550000;
             11'h05e: data = 64'h0000000000000000;
             11'h05f: data = 64'h0000000000000000;
-            //code x03 KOŃ BIAŁY:
+            // CODE x03 BIAŁY KOŃ ///////////////
             11'h060: data = 64'h0000000000000000;
             11'h061: data = 64'h0000000000000000;
             11'h062: data = 64'h0000000000000000;
@@ -147,7 +163,7 @@ module figure_rom
             11'h07d: data = 64'h0000555555550000;
             11'h07e: data = 64'h0000000000000000;
             11'h07f: data = 64'h0000000000000000;
-            //code x04 WIEŻA BIAŁA:
+            // CODE x04 WIEŻA BIAŁA /////////////
             11'h080: data = 64'h0000000000000000; 
             11'h081: data = 64'h0000000000000000;
             11'h082: data = 64'h0000000000000000;
@@ -180,7 +196,7 @@ module figure_rom
             11'h09d: data = 64'h0000555555550000;
             11'h09e: data = 64'h0000000000000000;
             11'h09f: data = 64'h0000000000000000;
-            //code x05 KRÓLOWA BIAŁA:
+            // CODE x05 KRÓLOWA BIAŁA ///////////
             11'h0a0: data = 64'h0000000000000000; 
             11'h0a1: data = 64'h0000000000000000;
             11'h0a2: data = 64'h0000000000000000;
@@ -213,7 +229,7 @@ module figure_rom
             11'h0bd: data = 64'h0000555555550000;
             11'h0be: data = 64'h0000000000000000;
             11'h0bf: data = 64'h0000000000000000;
-            //code x06 KRÓL BIAŁY:
+            // CODE x06 KRÓL BIAŁY///////////////
             11'h0c0: data = 64'h0000000000000000; 
             11'h0c1: data = 64'h0000000000000000;
             11'h0c2: data = 64'h0000000000000000;
@@ -246,7 +262,7 @@ module figure_rom
             11'h0dd: data = 64'h0000555555550000;
             11'h0de: data = 64'h0000000000000000;
             11'h0df: data = 64'h0000000000000000;
-            //code x07 PIONEK CZARNY:
+            // CODE x07 PIONEK CZARNY ///////////
             11'h0e0: data = 64'h0000000000000000; 
             11'h0e1: data = 64'h0000000000000000;
             11'h0e2: data = 64'h0000000000000000;
@@ -279,7 +295,7 @@ module figure_rom
             11'h0fd: data = 64'h0000055555500000;
             11'h0fe: data = 64'h0000000000000000;
             11'h0ff: data = 64'h0000000000000000;
-            //code x08 GONIEC CZARNY:
+            // CODE x08 GONIEC CZARNY ///////////
             11'h100: data = 64'h0000000000000000;
             11'h101: data = 64'h0000000000000000;
             11'h102: data = 64'h0000000140000000;
@@ -312,7 +328,7 @@ module figure_rom
             11'h11d: data = 64'h0000555555550000;
             11'h11e: data = 64'h0000000000000000;
             11'h11f: data = 64'h0000000000000000;
-            //code x09 KOŃ CZARNY:
+            // CODE x09 KOŃ CZARNY //////////////
             11'h120: data = 64'h0000000000000000; 
             11'h121: data = 64'h0000000000000000;
             11'h122: data = 64'h0000000000000000;
@@ -345,7 +361,7 @@ module figure_rom
             11'h13d: data = 64'h0000555555550000;
             11'h13e: data = 64'h0000000000000000;
             11'h13f: data = 64'h0000000000000000;
-            //code x10 WIEŻA CZARNA:
+            // CODE x10 WIEŻA CZARNA ////////////
             11'h140: data = 64'h0000000000000000; 
             11'h141: data = 64'h0000000000000000;
             11'h142: data = 64'h0000000000000000;
@@ -378,7 +394,7 @@ module figure_rom
             11'h15d: data = 64'h0000555555550000;
             11'h15e: data = 64'h0000000000000000;
             11'h15f: data = 64'h0000000000000000;
-            //cpde x11 KRÓLOWA CZARNA:
+            // CODE x11 KRÓLOWA CZARNA //////////
             11'h160: data = 64'h0000000000000000; 
             11'h161: data = 64'h0000000000000000;
             11'h162: data = 64'h0000000000000000;
@@ -411,7 +427,7 @@ module figure_rom
             11'h17d: data = 64'h0000555555550000;
             11'h17e: data = 64'h0000000000000000;
             11'h17f: data = 64'h0000000000000000;
-            //cpde x12 KRÓL CZARNA:
+            // CODE x12 KRÓL CZARNY /////////////
             11'h180: data = 64'h0000000000000000; 
             11'h181: data = 64'h0000000000000000;
             11'h182: data = 64'h0000000000000000;
@@ -445,5 +461,5 @@ module figure_rom
             11'h19e: data = 64'h0000000000000000;
             11'h19f: data = 64'h0000000000000000;
         endcase
-
+    end
 endmodule
