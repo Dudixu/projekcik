@@ -44,9 +44,9 @@ module chess_board
 
         end else begin
             if (place_piece) begin
-                board[position[5:3]][position[2:0]] <= figure_code;
+                board[position[5:3]][position[2:0]] <= figure_code;     // WPISANIE KODU FIGURY //
             end else if (remove_piece) begin
-                board[position[5:3]][position[2:0]] <= 4'h0;
+                board[position[5:3]][position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //
             end
         end
     end

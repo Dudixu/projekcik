@@ -1,5 +1,5 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Company : AGH University of Krakow
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+//Company : AGH University of Krakow
 // Create Date : 28.07.2024
 // Designers Name : Dawid Mironiuk & Michał Malara
 // Module Name : figure_move_logic
@@ -7,11 +7,11 @@
 // Target Devices : BASYS3
 // 
 // Description : Moduł podaje mozliwości ruchu wybranej figury oraz potwierdza legalność ruchu 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module figure_move_logic 
 (
-    input logic [4:0] selected_figure,         // 5-bit kod figury: 00000 - pion biały 1, 00001 - pion biały 2 ...
+    input logic [4:0] selected_figure,         // 5-bit kod figury: 0001 - pion biały 1, 10001 - pion czarny...
     input logic [2:0] board [7:0][7:0],        // Macierz 8x8 zawierająca kody figur, mijesce w macierzy odpowiada mijscu na planszy
     input logic [5:0] position,                // 6-bitowa pozycja na planszy: [2:0] - kolumna (0-7), [5:3] - wiersz (0-7)
     output logic [63:0] possible_moves         // 64-bitowa maska możliwych ruchów (1 bit na pole planszy)
@@ -49,10 +49,10 @@ module figure_move_logic
             result[(row+2)*8 + col] = 1;
         end
         // Bicie po przekątnych
-        if (row < 7 && col > 0 && board[row+1][col-1] != 0) begin
+        if (row < 7 && col > 0 && board[row+1][col-1][3] != 0) begin
             result[(row+1)*8 + (col-1)] = 1;
         end
-        if (row < 7 && col < 7 && board[row+1][col+1] != 0) begin
+        if (row < 7 && col < 7 && board[row+1][col+1][3] != 0) begin
             result[(row+1)*8 + (col+1)] = 1;
         end
         return result;
@@ -70,10 +70,49 @@ module figure_move_logic
         logic [63:0] result;
         result = 0;
 
+        /*
         for (int i = 0; i < 8; i++) begin
             if (i != row && board[i][col] == 0) result[i*8 + col] = 1;  // pionowe ruchy
             if (i != col && board[row][i] == 0) result[row*8 + i] = 1;  // poziome ruchy
         end
+        */
+
+        // Ruch w prawo
+            for (int c = col + 1; c < 8; c++) begin
+                if (board[row][c] == 4'h0) begin
+                    result[row * 8 + c] = 1;
+                end else begin
+                    result[row * 8 + c] = 0;
+                    break;
+                end
+            end
+        // Ruch w lewo
+            for (int c = col - 1; c >= 0; c--) begin
+                if (board[row][c] == 4'h0) begin
+                    result[row * 8 + c] = 1;
+                end else begin
+                    result[row * 8 + c] = 1;
+                    break;
+                end
+            end
+        // Ruch w dół
+            for (int r = row + 1; r < 8; r++) begin
+                if (board[r][col] == 4'h0) begin
+                    result[r * 8 + col] = 1;
+                end else begin
+                    result[r * 8 + col] = 1;
+                    break;
+                end
+            end
+        // Ruch w górę
+            for (int r = row - 1; r >= 0; r--) begin
+                if (board[r][col] == 4'h0) begin
+                    result[r * 8 + col] = 1;
+                end else begin
+                    result[r * 8 + col] = 1;
+                    break;
+                end
+            end    
         return result;
     endfunction
 
@@ -112,12 +151,60 @@ module figure_move_logic
         logic [63:0] result;
         result = 0;
 
+        /*
         for (int i = 1; i < 8; i++) begin
             if (col + i < 8 && row + i < 8 && board[row + i][col + i] == 0) result[(row + i)*8 + (col + i)] = 1; // prawa dolna przekątna
             if (col - i >= 0 && row + i < 8 && board[row + i][col - i] == 0) result[(row + i)*8 + (col - i)] = 1; // lewa dolna przekątna
             if (col + i < 8 && row - i >= 0 && board[row - i][col + i] == 0) result[(row - i)*8 + (col + i)] = 1; // prawa górna przekątna
             if (col - i >= 0 && row - i >= 0 && board[row - i][col - i] == 0) result[(row - i)*8 + (col - i)] = 1; // lewa górna przekątna
         end
+        */
+
+
+        // PRAWA DOLNA PRZEKATNA //  
+        for (int i = 1; i < 8; i++) begin 
+            if (col + i < 8 && row + i < 8 && board[row + i][col + i] == 0) begin
+                result[(row + i)*8 + (col + i)] = 1; 
+            end
+            else begin
+                result[(row + i)*8 + (col + i)] = 1;
+                break;
+            end
+        end
+
+        // LEWA DOLNA PRZEKATNA //
+        for (int i = 1; i < 8; i++) begin
+            if (col - i >= 0 && row + i < 8 && board[row + i][col - i] == 0) begin
+                result[(row + i)*8 + (col - i)] = 1; 
+            end
+            else begin
+                result[(row + i)*8 + (col - i)] = 1;
+                break;
+            end
+        end
+
+        // PRAWA GÓRNA PRZEKATNA //
+        for (int i = 1; i < 8; i++) begin
+            if (col + i < 8 && row - i >= 0 && board[row - i][col + i] == 0) begin
+                result[(row - i)*8 + (col + i)] = 1; 
+            end
+            else begin
+                result[(row + i)*8 + (col - i)] = 1;
+                break;
+            end
+        end
+
+        // LEWA GÓRNA PRZEKATNA //
+        for (int i = 1; i < 8; i++) begin
+            if (col - i >= 0 && row - i >= 0 && board[row - i][col - i] == 0) begin
+                result[(row - i)*8 + (col - i)] = 1; 
+            end
+            else begin
+                 result[(row - i)*8 + (col - i)] = 1; 
+                 break,
+            end
+        end
+
         return result;
     endfunction
 
