@@ -13,26 +13,28 @@ sv work ../../rtl/vga_pkg.sv \
         ../../rtl/vga_timing.sv \
         ../../rtl/vga_if.sv \
         ../../rtl/draw_bg.sv \
-        ../../rtl/draw_rect.sv \
-        ../../rtl/draw_rect_ctl.sv \
+        ../../rtl/Rect/draw_rect.sv \
+        ../../rtl/Rect/draw_rect_ctl.sv \
         ../../rtl/top_vga.sv \
-        ../../rtl/rect/image_rom.sv \
-        ../../rtl/draw_mouse.sv \
-        ../../rtl/draw_figure.sv \
-        ../../rtl/figure_rom.sv \
-        ../../rtl/font_rom.sv \
-        ../../rtl/bg_letters.sv \
         ../../rtl/delay.sv \
-        ../../rtl/figure_position.sv \
-        ../../rtl/clk_wiz_0.v \
-        ../../rtl/clk_wiz_0_clk_wiz.v \
+        ../../rtl/Figure/draw_figure.sv \
+        ../../rtl/Figure/figure_position.sv \
+        ../../rtl/Figure/figure_rom.sv \
+        ../../rtl/Game_Logic/chess_board.sv \
+        ../../rtl/Game_Logic/figure_move_logic.sv \
+        ../../rtl/Game_Logic/waiting_for_player.sv \
+        ../../rtl/Letters/bg_letters.sv \
+        ../../rtl/Letters/font_rom.sv \
+        ../../rtl/Mouse/draw_mouse.sv \
         ../../fpga/rtl/top_vga_basys3.sv \
         ../common/tiff_writer.sv \
         top_vga_tb.sv
         
 # compile glbl module - required for IP simulation
-verilog work ../common/glbl.v
+verilog work ../common/glbl.v \
+             ../../rtl/clk_wiz_0_clk_wiz.v \
+             ../../rtl/clk_wiz_0.v
 
-vhdl work ../../rtl/MouseCtl.vhd \
-        ../../rtl/Ps2Interface.vhd \
-        ../../rtl/MouseDisplay.vhd \
+vhdl work ../../rtl/Mouse/MouseCtl.vhd \
+        ../../rtl/Mouse/Ps2Interface.vhd \
+        ../../rtl/Mouse/MouseDisplay.vhd \

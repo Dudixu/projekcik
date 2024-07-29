@@ -73,12 +73,6 @@ top_vga dut (
     .b(b)
 );
 
-initial begin
-force dut.xpos = 100;
-force dut.ypos = 100;
-end
-
-
 tiff_writer #(
     .XDIM(16'd1344),
     .YDIM(16'd806),
