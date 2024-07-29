@@ -28,10 +28,10 @@ module chess_board
         if (rst) begin
 
             // FIGURY //
-            board[0] <= {4'hA, 4'h9, 4'h8, 4'hB, 4'hC, 4'h8, 4'h9, 4'hA}; // Figury czarne  1 wiersz
-            board[1] <= {4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7}; // Piony czarne 2 wiersz
-            board[6] <= {4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1}; // Piony białe 7 wiersz
-            board[7] <= {4'h4, 4'h3, 4'h2, 4'h5, 4'h6, 4'h2, 4'h3, 4'h4}; // Figury białe 8 wiersz
+            board[1] <= {4'hA, 4'h9, 4'h8, 4'hB, 4'hC, 4'h8, 4'h9, 4'hA}; // Figury czarne  1 wiersz
+            board[2] <= {4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7}; // Piony czarne 2 wiersz
+            board[7] <= {4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1}; // Piony białe 7 wiersz
+            board[8] <= {4'h4, 4'h3, 4'h2, 4'h5, 4'h6, 4'h2, 4'h3, 4'h4}; // Figury białe 8 wiersz
 
             // PUSTE POLA //
             for (int i = 2; i < 6; i++) begin
@@ -44,9 +44,9 @@ module chess_board
 
         end else begin
             if (place_piece) begin
-                board[position[5:3]][position[2:0]] <= figure_code;     // WPISANIE KODU FIGURY //
+                board[figure_position[5:3]][figure_position[2:0]] <= figure_code;     // WPISANIE KODU FIGURY //
             end else if (remove_piece) begin
-                board[position[5:3]][position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //
+                board[figure_position[5:3]][figure_position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //
             end
         end
     end

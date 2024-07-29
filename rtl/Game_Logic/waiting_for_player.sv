@@ -7,7 +7,7 @@ module MoveController (
     input logic confirm_move,                  // Sygnał zatwierdzenia ruchu przez gracza
     output logic error_message,                // Sygnał błędu: ruch nie dozwolony
     output logic update_board,                 // Sygnał aktualizacji planszy
-    output logic [5:0] position_to_update       // Pozycja do zaktualizowania na planszy
+    output logic [5:0] position_to_update      // Pozycja do zaktualizowania na planszy
 );
 
     logic [5:0] current_position;              // Bieżąca pozycja figury

@@ -14,7 +14,7 @@
 module figure_rom
     (
         input  logic        clk,
-        input  logic [10:0] addr,                 // {figure_code[5:0], figure_line[4:0]} //
+        input  logic [8:0] addr,                 // {figure_code[5:0], figure_line[4:0]} //
         output logic  [63:0] figure_line_pixels   // pixels of the figure line //
     );
 
@@ -30,7 +30,7 @@ module figure_rom
         
     always_comb begin
         case (addr)
-
+            // 00-bg 01-szary 10-biła 11-czarny
             // CODE x00 PUSTE POLE //////////////
             11'h000: data = 64'h0000000000000000;
             11'h001: data = 64'h0000000000000000;
@@ -261,9 +261,9 @@ module figure_rom
             11'h0dc: data = 64'h00006AAAAAA90000;
             11'h0dd: data = 64'h0000555555550000;
             11'h0de: data = 64'h0000000000000000;
-            11'h0df: data = 64'h0000000000000000;
+            11'h0df: data = 64'h0000000000000000;   
             // CODE x07 PIONEK CZARNY ///////////
-            11'h0e0: data = 64'h0000000000000000; 
+            11'h0e0: data = 64'h0000000000000000;   
             11'h0e1: data = 64'h0000000000000000;
             11'h0e2: data = 64'h0000000000000000;
             11'h0e3: data = 64'h0000000000000000;
@@ -460,6 +460,39 @@ module figure_rom
             11'h19d: data = 64'h0000555555550000;
             11'h19e: data = 64'h0000000000000000;
             11'h19f: data = 64'h0000000000000000;
+            // CODE x13 possible move ///////////
+            11'h1a0: data = 64'h0000000000000000;   
+            11'h1a1: data = 64'h0000000000000000;
+            11'h1a2: data = 64'h0000000000000000;
+            11'h1a3: data = 64'h0000000000000000;
+            11'h1a4: data = 64'h0000000000000000;
+            11'h1a5: data = 64'h0000000000000000;
+            11'h1a6: data = 64'h0000000000000000;
+            11'h1a7: data = 64'h0000000000000000;
+            11'h1a8: data = 64'h0000000000000000;
+            11'h1a9: data = 64'h0000000000000000;
+            11'h1aa: data = 64'h0000000000000000;
+            11'h1ab: data = 64'h0000000000000000;
+            11'h1ac: data = 64'h0000000550000000; 
+            11'h1ad: data = 64'h0000001004000000; 
+            11'h1ae: data = 64'h0000004001000000; 
+            11'h1af: data = 64'h0000004001000000;
+            11'h1b0: data = 64'h0000004001000000;
+            11'h1b1: data = 64'h0000004001000000;
+            11'h1b2: data = 64'h0000001004000000;
+            11'h1b3: data = 64'h0000000550000000;
+            11'h1b4: data = 64'h0000000000000000;
+            11'h1b5: data = 64'h0000000000000000;
+            11'h1b6: data = 64'h0000000000000000;
+            11'h1b7: data = 64'h0000000000000000;
+            11'h1b8: data = 64'h0000000000000000;
+            11'h1b9: data = 64'h0000000000000000;
+            11'h1ba: data = 64'h0000000000000000;
+            11'h1bb: data = 64'h0000000000000000;
+            11'h1bc: data = 64'h0000000000000000;
+            11'h1bd: data = 64'h0000000000000000;
+            11'h1be: data = 64'h0000000000000000;
+            11'h1bf: data = 64'h0000000000000000;
         endcase
     end
 endmodule

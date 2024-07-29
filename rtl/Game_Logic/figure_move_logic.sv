@@ -11,7 +11,7 @@
 
 module figure_move_logic 
 (
-    input logic [4:0] selected_figure,         // 5-bit kod figury: 0001 - pion biały 1, 10001 - pion czarny...
+    input logic [4:0] selected_figure,         // 5-bit kod figury: 0001 - pion biały 1, 0111 - pion czarny...
     input logic [2:0] board [7:0][7:0],        // Macierz 8x8 zawierająca kody figur, mijesce w macierzy odpowiada mijscu na planszy
     input logic [5:0] position,                // 6-bitowa pozycja na planszy: [2:0] - kolumna (0-7), [5:3] - wiersz (0-7)
     output logic [63:0] possible_moves         // 64-bitowa maska możliwych ruchów (1 bit na pole planszy)
@@ -118,7 +118,7 @@ module figure_move_logic
 
     // OBLICZANIE MOZLIWYCH RUCHÓW SKOCZKA //////////////////////////////////////////////////////////////////////////////////////////
     
-    function logic [63:0] knight_moves
+    /*function logic [63:0] knight_moves
     (
         input logic [2:0] col, 
         input logic [2:0] row, 
@@ -127,7 +127,7 @@ module figure_move_logic
         
         logic [63:0] result;
         result = 0;
-        int moves[8][2] = '{ '{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2} };
+        moves = { {2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2} };
        
         for (int i = 0; i < 8; i++) begin
             int new_col = col + moves[i][1];
@@ -138,7 +138,7 @@ module figure_move_logic
         end
         return result;
     endfunction
-
+*/
     // OBLICZANIE MOZLIWYCH RUCHÓW GOŃCA ///////////////////////////////////////////////////////////////////////////////////////////
     
     function logic [63:0] bishop_moves
@@ -201,7 +201,7 @@ module figure_move_logic
             end
             else begin
                  result[(row - i)*8 + (col - i)] = 1; 
-                 break,
+                 break;
             end
         end
 
@@ -223,7 +223,7 @@ module figure_move_logic
     endfunction
 
     // OBLICZANIE MOZLIWYCH RUCHÓW KRÓLA ////////////////////////////////////////////////////////////////////////////////////////////
-
+    /*
     function logic [63:0] king_moves
     (
         input logic [2:0] col, 
@@ -248,27 +248,27 @@ module figure_move_logic
 
         return result;
     endfunction
-
+*/
     always_comb begin
         case (selected_figure)
 
             // KODY FIGUR BIAŁYCH /////////////////////////////////
 
             4'b0001: possible_moves = pawn_moves(col, row, board); 
-            4'b0010: possible_moves = rook_moves(col, row, board);
+            4'b0010: possible_moves = bishop_moves(col, row, board);
             4'b0011: possible_moves = knight_moves(col, row, board);
-            4'b0100: possible_moves = bishop_moves(col, row, board);
+            4'b0100: possible_moves = rook_moves(col, row, board);
             4'b0101: possible_moves = queen_moves(col, row, board);
             4'b0110: possible_moves = king_moves(col, row, board);
             
             // KODY FIGUR CZARNYCH /////////////////////////////////
 
-            4'b1001: possible_moves = pawn_moves(col, row, board); 
+            4'b0111: possible_moves = pawn_moves(col, row, board); 
+            4'b1000: possible_moves = bishop_moves(col, row, board);
+            4'b1001: possible_moves = knight_moves(col, row, board);
             4'b1010: possible_moves = rook_moves(col, row, board);
-            4'b1011: possible_moves = knight_moves(col, row, board);
-            4'b1100: possible_moves = bishop_moves(col, row, board);
-            4'b1101: possible_moves = queen_moves(col, row, board);
-            4'b1110: possible_moves = king_moves(col, row, board);
+            4'b1011: possible_moves = queen_moves(col, row, board);
+            4'b1100: possible_moves = king_moves(col, row, board);
 
             default: possible_moves = 0;
         endcase
