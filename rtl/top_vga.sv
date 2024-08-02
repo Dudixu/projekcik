@@ -50,10 +50,12 @@
  logic  [7:0]  char_pixels;
 
  logic  [63:0] figure_pixels;
- logic  [8:0] figure_addr;
+ logic  [8:0]  figure_addr;
  logic  [5:0]  figure_xy;
  logic  [3:0]  figure_code;
  logic  [4:0]  figure_line;
+ logic  [5:0]  figure_position;
+ logic pick_piece;
  
  // SIGNALS ASSIGNMENTS ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -89,7 +91,6 @@ draw_bg u_draw_bg (
     .vga_in(vga_tim),
     .vga_out(vga_bg)
 );
-
 draw_figure u_draw_figure (
     .clk(clk_65),
     .rst,
@@ -99,11 +100,13 @@ draw_figure u_draw_figure (
     .figure_xy(figure_xy),
     .figure_line(figure_line)
 );
-
-figure_position u_figure_position(
+chess_board u_chess_board(
     .clk(clk_65),
+    .rst,
     .figure_xy(figure_xy),
-    .figure_code(figure_code)
+    .figure_code(figure_code),
+    .figure_position(figure_position),
+    .pick_piece
 );
 
 always_comb begin
@@ -120,16 +123,14 @@ end
     .rgb_pixel(logo_rgb),
     .pixel_addr(logo_addr)
 );*/
-/*draw_rect_ctl u_draw_rect_ctl(
+mouse_position u_mouse_position(
     .clk(clk_65),
     .rst,
-    .vga_in(vga_figure),
-    .mouse_left(mouse_left),
+    .LMB(mouse_left),
     .mouse_xpos(xpos_buf_out),
     .mouse_ypos(ypos_buf_out),
-    .xpos,
-    .ypos
-);*/
+    .mouse_position(figure_position)
+);
 MouseCtl u_MouseCtl(
     .clk(clk_100),
     .rst,

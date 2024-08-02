@@ -38,16 +38,19 @@ set sv_files {
     ../rtl/draw_bg.sv
     ../rtl/top_vga.sv
     ../rtl/vga_if.sv
-    ../rtl/draw_rect.sv
-    ../rtl/draw_mouse.sv
-    ../rtl/draw_figure.sv
-    ../rtl/figure_rom.sv
-    ../rtl/font_rom.sv
+    ../rtl/Rect/draw_rect.sv
+    ../rtl/Rect/mouse_position.sv
+    ../rtl/Mouse/draw_mouse.sv
+    ../rtl/Figure/draw_figure.sv
+    ../rtl/Figure/figure_position.sv
+    ../rtl/Figure/figure_rom.sv
+    ../rtl/Game_Logic/chess_board.sv
+    ../rtl/Game_Logic/figure_move_logic.sv
+    ../rtl/Game_Logic/waiting_for_player.sv
+    ../rtl/Letters/font_rom.sv
+    ../rtl/Letters/bg_letters.sv
+    ../rtl/transmission.sv
     ../rtl/delay.sv
-    ../rtl/bg_letters.sv
-    ../rtl/rect/image_rom.sv
-    ../rtl/figure_position.sv
-    ../rtl/draw_rect_ctl.sv
     rtl/top_vga_basys3.sv
 }
 
@@ -59,12 +62,10 @@ set sv_files {
 
 # Specify VHDL design files location            -- EDIT
  set vhdl_files {
-    ../rtl/MouseCtl.vhd
-    ../rtl/Ps2Interface.vhd
-    ../rtl/MouseDisplay.vhd
+    ../rtl/Mouse/MouseCtl.vhd
+    ../rtl/Mouse/Ps2Interface.vhd
+    ../rtl/Mouse/MouseDisplay.vhd
  }
 
 # Specify files for a memory initialization     -- EDIT
- set mem_files {
-    ../rtl/rect/image_rom.data
- }
+# set mem_files { }

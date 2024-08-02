@@ -30,7 +30,7 @@ module top_vga_tb;
  */
 
 localparam CLK_PERIOD_65 = 15;
-localparam CLK_PERIOD_100 = 10;     // 40 MHz
+localparam CLK_PERIOD_100 = 10;
 
 /**
  * Local variables and signals
@@ -72,6 +72,12 @@ top_vga dut (
     .g(g),
     .b(b)
 );
+
+initial begin
+    force dut.xpos_buf_out = 330;
+    force dut.ypos_buf_out = 200;
+    force dut.pick_piece = 1;
+end
 
 tiff_writer #(
     .XDIM(16'd1344),
