@@ -9,7 +9,8 @@
 
 `timescale 1 ns / 1 ps
 
-module vga_timing (
+module vga_timing 
+(
     input  logic clk,
     input  logic rst,
     vga_if.out vga_out   // Wyjście interfejsu vga_if
@@ -17,10 +18,7 @@ module vga_timing (
 
 import vga_pkg::*;
 
-
-/**
- * Local variables and signals
- */
+// LOCAL VARIABLES //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 logic [10:0] hcount_nxt;
 logic hsync_nxt;
@@ -29,10 +27,7 @@ logic [10:0] vcount_nxt;
 logic vsync_nxt;
 logic vblnk_nxt;
 
-
-/**
- * Internal logic
- */
+// INTERNAL LOGIC //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 always_ff @(posedge clk) begin
     if(rst) begin

@@ -39,8 +39,7 @@ set sv_files {
     ../rtl/top_vga.sv
     ../rtl/vga_if.sv
     ../rtl/Rect/draw_rect.sv
-    ../rtl/Rect/mouse_position.sv
-    ../rtl/Mouse/draw_mouse.sv
+    ../rtl/draw_mouse.sv
     ../rtl/Figure/draw_figure.sv
     ../rtl/Figure/figure_position.sv
     ../rtl/Figure/figure_rom.sv
@@ -51,6 +50,8 @@ set sv_files {
     ../rtl/Letters/bg_letters.sv
     ../rtl/transmission.sv
     ../rtl/delay.sv
+    ../rtl/bg_letters.sv
+    ../rtl/Rect/draw_rect_ctl.sv
     rtl/top_vga_basys3.sv
 }
 
@@ -62,10 +63,12 @@ set sv_files {
 
 # Specify VHDL design files location            -- EDIT
  set vhdl_files {
-    ../rtl/Mouse/MouseCtl.vhd
-    ../rtl/Mouse/Ps2Interface.vhd
-    ../rtl/Mouse/MouseDisplay.vhd
+    ../rtl/MouseCtl.vhd
+    ../rtl/Ps2Interface.vhd
+    ../rtl/MouseDisplay.vhd
  }
 
 # Specify files for a memory initialization     -- EDIT
-# set mem_files { }
+ set mem_files {
+    ../rtl/rect/image_rom.data
+ }

@@ -37,8 +37,8 @@
  vga_if vga_figure();
  vga_if mouse_out();
 
- logic  [11:0] xpos;
- logic  [11:0] ypos;
+ //logic  [11:0] xpos;
+ //logic  [11:0] ypos;
  logic  mouse_left;
 
  logic  [11:0] xpos_buf_in;
@@ -46,17 +46,16 @@
  logic  [11:0] xpos_buf_out;
  logic  [11:0] ypos_buf_out;
 
- logic  [11:0] logo_rgb;
- logic  [11:0] logo_addr;
-
  logic  [10:0] char_addr;
  logic  [7:0]  char_pixels;
 
  logic  [63:0] figure_pixels;
- logic  [8:0] figure_addr;
+ logic  [8:0]  figure_addr;
  logic  [5:0]  figure_xy;
  logic  [3:0]  figure_code;
  logic  [4:0]  figure_line;
+ logic  [5:0]  figure_position;
+ logic pick_piece;
  
  // SIGNALS ASSIGNMENTS ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -92,7 +91,6 @@ draw_bg u_draw_bg (
     .vga_in(vga_tim),
     .vga_out(vga_bg)
 );
-
 draw_figure u_draw_figure (
     .clk(clk_65),
     .rst,
@@ -102,18 +100,20 @@ draw_figure u_draw_figure (
     .figure_xy(figure_xy),
     .figure_line(figure_line)
 );
-
-figure_position u_figure_position(
+chess_board u_chess_board(
     .clk(clk_65),
+    .rst,
     .figure_xy(figure_xy),
-    .figure_code(figure_code)
+    .figure_code(figure_code),
+    .figure_position(figure_position),
+    .pick_piece
 );
 
 always_comb begin
     figure_addr = {figure_code, figure_line};
 end
 
-draw_rect u_draw_rect (
+/*draw_rect u_draw_rect (
     .clk(clk_65),
     .rst,
     .vga_in(vga_figure),
@@ -122,16 +122,14 @@ draw_rect u_draw_rect (
     .ypos,
     .rgb_pixel(logo_rgb),
     .pixel_addr(logo_addr)
-);
-draw_rect_ctl u_draw_rect_ctl(
+);*/
+mouse_position u_mouse_position(
     .clk(clk_65),
     .rst,
-    .vga_in(vga_figure),
-    .mouse_left(mouse_left),
+    .LMB(mouse_left),
     .mouse_xpos(xpos_buf_out),
     .mouse_ypos(ypos_buf_out),
-    .xpos,
-    .ypos
+    .mouse_position(figure_position)
 );
 MouseCtl u_MouseCtl(
     .clk(clk_100),
@@ -161,7 +159,7 @@ end
 draw_mouse u_draw_mouse(
     .clk(clk_65),
     .rst,
-    .vga_in(vga_rect),
+    .vga_in(vga_figure),
     .vga_out(mouse_out),
     .xpos(xpos_buf_out),
     .ypos(ypos_buf_out)
@@ -172,9 +170,4 @@ figure_rom u_figure_rom(
     .figure_line_pixels(figure_pixels)
 );
 
-image_rom u_image_rom(
-    .clk(clk_65),
-    .address(logo_addr),
-    .rgb(logo_rgb)
-);
  endmodule
