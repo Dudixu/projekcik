@@ -56,6 +56,7 @@
  logic  [4:0]  figure_line;
  logic  [5:0]  figure_position;
  logic pick_piece;
+ logic place_piece;
  
  // SIGNALS ASSIGNMENTS ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -106,7 +107,8 @@ chess_board u_chess_board(
     .figure_xy(figure_xy),
     .figure_code(figure_code),
     .figure_position(figure_position),
-    .pick_piece
+    .pick_piece(pick_piece),
+    .place_piece(place_piece)
 );
 
 always_comb begin
@@ -129,7 +131,9 @@ mouse_position u_mouse_position(
     .LMB(mouse_left),
     .mouse_xpos(xpos_buf_out),
     .mouse_ypos(ypos_buf_out),
-    .mouse_position(figure_position)
+    .pick_piece(pick_piece),
+    .mouse_position(figure_position),
+    .place_piece(place_piece)
 );
 MouseCtl u_MouseCtl(
     .clk(clk_100),
