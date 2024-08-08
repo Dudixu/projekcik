@@ -55,6 +55,10 @@
  logic  [3:0]  figure_code;
  logic  [4:0]  figure_line;
  logic  [5:0]  figure_position;
+ logic  [3:0]  board[0:7][0:7];
+ logic  [3:0]  figure_taken;
+ logic  [5:0]  p_pos;
+ logic  [63:0] possible_moves;
  logic pick_piece;
  logic place_piece;
  
@@ -110,13 +114,17 @@ chess_board u_chess_board(
     .figure_position(figure_position),
     .pick_piece(pick_piece),
     .place_piece(place_piece),
-    .pp_pos(),
-    .figure_taken()
+    .pp_pos(p_pos),
+    .figure_taken(figure_taken),
+    .possible_moves(possible_moves)
 );
 figure_move_logic u_figure_move_logic(
     .clk(clk_65),
     .rst,
-    .
+    .selected_figure(figure_taken),
+    .board(board),
+    .position(p_pos),
+    .possible_moves(possible_moves)
 );
 always_comb begin
     figure_addr = {figure_code, figure_line};
