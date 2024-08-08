@@ -11,8 +11,8 @@
 
 module figure_move_logic 
 (
-    input logic [4:0] selected_figure,         // 5-bit kod figury: 0001 - pion biały 1, 0111 - pion czarny...
-    input logic [3:0] board [7:0][7:0],        // Macierz 8x8 zawierająca kody figur, mijesce w macierzy odpowiada mijscu na planszy
+    input logic [3:0] selected_figure,         // 5-bit kod figury: 0001 - pion biały 1, 0111 - pion czarny...
+    input logic [3:0] board [0:7][0:7],        // Macierz 8x8 zawierająca kody figur, mijesce w macierzy odpowiada mijscu na planszy
     input logic [5:0] position,                // 6-bitowa pozycja na planszy: [2:0] - kolumna (0-7), [5:3] - wiersz (0-7)
     output logic [63:0] possible_moves         // 64-bitowa maska możliwych ruchów (1 bit na pole planszy)
 );

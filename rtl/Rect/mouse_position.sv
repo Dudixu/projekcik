@@ -30,8 +30,8 @@ always_ff @(posedge clk) begin : xypos_blk
             pick_piece <= 0;
             place_piece <= 1;
         end
-        mouse_position[2:0] <= (mouse_ypos-128)/64;
-        mouse_position[5:3] <= (mouse_xpos-256)/64;
+        mouse_position[5:3] <= (mouse_ypos-128)/64;
+        mouse_position[2:0] <= (mouse_xpos-256)/64;
 
     end
 end

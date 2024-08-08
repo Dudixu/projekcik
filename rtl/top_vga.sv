@@ -104,13 +104,20 @@ draw_figure u_draw_figure (
 chess_board u_chess_board(
     .clk(clk_65),
     .rst,
+    .board(),
     .figure_xy(figure_xy),
     .figure_code(figure_code),
     .figure_position(figure_position),
     .pick_piece(pick_piece),
-    .place_piece(place_piece)
+    .place_piece(place_piece),
+    .pp_pos(),
+    .figure_taken()
 );
-
+figure_move_logic u_figure_move_logic(
+    .clk(clk_65),
+    .rst,
+    .
+);
 always_comb begin
     figure_addr = {figure_code, figure_line};
 end
