@@ -108,7 +108,7 @@ draw_figure u_draw_figure (
 chess_board u_chess_board(
     .clk(clk_65),
     .rst,
-    .board(),
+    .board(board),
     .figure_xy(figure_xy),
     .figure_code(figure_code),
     .figure_position(figure_position),

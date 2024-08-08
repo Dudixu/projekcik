@@ -21,6 +21,7 @@ sv work ../../rtl/vga_pkg.sv \
         ../../rtl/Figure/figure_position.sv \
         ../../rtl/Figure/figure_rom.sv \
         ../../rtl/Game_Logic/chess_board.sv \
+        ../../rtl/Game_Logic/figure_move_logic.sv \
         ../../rtl/Game_Logic/waiting_for_player.sv \
         ../../rtl/Letters/bg_letters.sv \
         ../../rtl/Letters/font_rom.sv \

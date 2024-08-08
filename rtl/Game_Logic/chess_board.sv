@@ -65,5 +65,5 @@ module chess_board
             end
         end
     end
-endmodules
+endmodule
 
