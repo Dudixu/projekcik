@@ -27,7 +27,7 @@ module figure_move_logic
     // Maska wszystkich możliwych ruchów
     logic [63:0] moves;
 
-
+    const int knight_moves[8][2] = '{'{-2, -1}, '{-2,  1}, '{-1, -2}, '{-1,  2}, '{ 1, -2}, '{ 1,  2}, '{ 2, -1}, '{ 2,  1}};
 
     // OBLICZANIE MOZLIWYCH RUCHÓW PIONKA ///////////////////////////////////////////////////////////////////////////////////////////
     
@@ -139,6 +139,21 @@ module figure_move_logic
         return result;
     endfunction
 */
+
+    if (piece_code == 3'b010) begin // Kod skoczka
+            for (int i = 0; i < 8; i++) begin
+                int r = row + knight_moves[i][0];
+                int c = col + knight_moves[i][1];
+                if (r >= 0 && r < 8 && c >= 0 && c < 8) begin
+                    if (board[r][c] == 3'b000) begin
+                        valid_moves[r*8 + c] = 1; // Puste pole - skoczek może się ruszyć
+                    end else if (board[r][c] != piece_code) begin
+                        valid_moves[r*8 + c] = 1; // Pole zajęte przez przeciwnika - bicie
+                    end
+                end
+            end
+        end
+
     // OBLICZANIE MOZLIWYCH RUCHÓW GOŃCA ///////////////////////////////////////////////////////////////////////////////////////////
     
     function logic [63:0] bishop_moves

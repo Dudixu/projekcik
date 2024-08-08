@@ -1,16 +1,16 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 //Company : AGH University of Krakow
-// Create Date : 28.07.2024
+// Create Date : 07.08.2024
 // Designers Name : Dawid Mironiuk & Michał Malara
-// Module Name : figure_move_logic
+// Module Name : check_king_safety
 // Project Name : SZACHY - Projekt zaliczeniowy
 // Target Devices : BASYS3
 // 
-// Description : Moduł podaje mozliwości ruchu wybranej figury oraz potwierdza legalność ruchu 
+// Description : Moduł odpowiada za sprawdzenie czy Król jest atakowany
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-module CheckKingSafety 
+module check_king_safety 
 (
     input logic [2:0] board [7:0][7:0],    // Aktualna plansza
     input logic [5:0] king_position,       // Pozycja króla
