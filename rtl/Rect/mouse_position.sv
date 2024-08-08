@@ -1,7 +1,18 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+//Company : AGH University of Krakow
+// Create Date : 07.08.2024
+// Designers Name : Dawid Mironiuk & Michał Malara
+// Module Name : mouse_position
+// Project Name : SZACHY - Projekt zaliczeniowy
+// Target Devices : BASYS3
+// 
+// Description : Odczytuje połozenie kursora na szachownicy
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns/1ps
 
 module mouse_position
-import vga_pkg::*; (
+(
     input logic        clk,
     input logic        rst,
     input logic        LMB,
@@ -11,7 +22,11 @@ import vga_pkg::*; (
     output logic pick_piece,
     output logic place_piece
 );
+
+import vga_pkg::*; 
+
 logic LMB_pressed;
+
 always_ff @(posedge clk) begin : xypos_blk
     if(rst) begin
         mouse_position <= '0;
