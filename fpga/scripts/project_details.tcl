@@ -46,7 +46,6 @@ set sv_files {
     ../rtl/Figure/figure_rom.sv
     ../rtl/Game_Logic/chess_board.sv
     ../rtl/Game_Logic/figure_move_logic.sv
-    ../rtl/Game_Logic/waiting_for_player.sv
     ../rtl/Letters/font_rom.sv
     ../rtl/Letters/bg_letters.sv
     ../rtl/transmission.sv
