@@ -57,7 +57,7 @@ module chess_board
                 piece_already_picked <= '1;
                 pp_pos <= figure_position;
             end 
-            if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[63 - figure_xy] == 1)begin
+            if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[figure_xy] == 1)begin
                 figure_code <= 4'hD;
             end
             else begin
