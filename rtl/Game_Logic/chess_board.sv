@@ -25,8 +25,6 @@ module chess_board
 
 );
 
-    logic piece_already_picked;
-
     always_ff @(posedge clk, posedge rst) begin
         
         // INICIALIZACJA PLANSZY ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,19 +42,16 @@ module chess_board
             
             pp_pos <= '0;
             figure_taken <= '0;
-            piece_already_picked <= '0;
             figure_code <= '0;
         // MODYFIKACJA POSZCEGÓLNYCH POZYCJI W TRAKCIE ROZGRYWKI ////////////////////////////////////////////////////////////////////
 
         end else begin
-            if (place_piece == 1 & piece_already_picked == 1) begin
+            if (place_piece == 1) begin
                 board[figure_position[5:3]][figure_position[2:0]] <= figure_taken;     // WPISANIE KODU FIGURY //
-                piece_already_picked <= '0;
                 figure_taken <= '0;
             end else if (pick_piece == 1 & piece_already_picked == 0) begin
                 figure_taken <= board[figure_position[5:3]][figure_position[2:0]];
                 board[figure_position[5:3]][figure_position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //
-                piece_already_picked <= '1;
                 pp_pos <= figure_position;
             end 
             if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[figure_xy] == 1)begin
