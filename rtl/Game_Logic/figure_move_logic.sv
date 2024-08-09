@@ -233,14 +233,14 @@ else if(selected_figure == 4'h6)begin
         result[(row + 1)*8 + col + 1] = 1;
     end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] > 4'h6)begin
         result[(row + 1)*8 + col - 1] = 1;
-    end else if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] > 4'h6)begin
-        result[(row - 1)*8 + col + 1] = 1;
-    end else if(board[row - 1][col - 1] == 4'h0 | board[row - 1][col - 1] > 4'h6)begin
-        result[(row - 1)*8 + col - 1] = 1;
-    end else if(board[row + 1][col + 1] == 4'h0 | board[row + 1][col + 1] > 4'h6)begin
-        result[(row + 1)*8 + col + 1] = 1;
-    end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] > 4'h6)begin
-        result[(row + 1)*8 + col - 1] = 1;
+    end else if(board[row][col + 1] == 4'h0 | board[row][col + 1] > 4'h6)begin
+        result[(row)*8 + col + 1] = 1;
+    end else if(board[row][col - 1] == 4'h0 | board[row][col - 1] > 4'h6)begin
+        result[(row)*8 + col - 1] = 1;
+    end else if(board[row + 1][col] == 4'h0 | board[row + 1][col] > 4'h6)begin
+        result[(row + 1)*8 + col] = 1;
+    end else if(board[row + 1][col] == 4'h0 | board[row - 1][col] > 4'h6)begin
+        result[(row - 1)*8 + col] = 1;
     end else if(position == 60 & board[7][5] == 4'h0 & board[7][6] == 4'h0 & board[7][7] == 4'h4)begin
         result[62] = 1;
     end else if(position == 60 & board[7][1] == 4'h0 & board[7][2] == 4'h0 & board[7][3] == 4'h0 & board[7][0] == 4'h4)begin
@@ -260,14 +260,14 @@ else if(selected_figure == 4'hC)begin
         result[(row + 1)*8 + col + 1] = 1;
     end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] < 4'h7)begin
         result[(row + 1)*8 + col - 1] = 1;
-    end else if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] < 4'h7)begin
-        result[(row - 1)*8 + col + 1] = 1;
-    end else if(board[row - 1][col - 1] == 4'h0 | board[row - 1][col - 1] < 4'h7)begin
-        result[(row - 1)*8 + col - 1] = 1;
-    end else if(board[row + 1][col + 1] == 4'h0 | board[row + 1][col + 1] < 4'h7)begin
-        result[(row + 1)*8 + col + 1] = 1;
-    end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] < 4'h7)begin
-        result[(row + 1)*8 + col - 1] = 1;
+    end else if(board[row][col + 1] == 4'h0 | board[row][col + 1] < 4'h7)begin
+        result[(row)*8 + col + 1] = 1;
+    end else if(board[row - 1][col - 1] == 4'h0 | board[row][col - 1] < 4'h7)begin
+        result[(row)*8 + col - 1] = 1;
+    end else if(board[row + 1][col] == 4'h0 | board[row + 1][col] < 4'h7)begin
+        result[(row + 1)*8 + col] = 1;
+    end else if(board[row - 1][col] == 4'h0 | board[row - 1][col] < 4'h7)begin
+        result[(row - 1)*8 + col] = 1;
     end else if(position == 4 & board[0][1] == 0'h0 & board[0][2] == 0'h0 & board[0][3] == 0'h0 & board[0][0] == 4'hA)begin
         result[2] = 1;
     end else if(position == 4 & board[0][5] == 4'h0 & board[0][6] == 0'h0 & board[0][7] == 0'hA)begin
