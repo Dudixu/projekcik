@@ -45,12 +45,14 @@ module chess_board
             pp_pos <= '0;
             figure_taken <= '0;
             piece_already_picked <= '0;
+            figure_code <= '0;
         // MODYFIKACJA POSZCEGÓLNYCH POZYCJI W TRAKCIE ROZGRYWKI ////////////////////////////////////////////////////////////////////
 
         end else begin
             if (place_piece == 1 & piece_already_picked == 1) begin
                 board[figure_position[5:3]][figure_position[2:0]] <= figure_taken;     // WPISANIE KODU FIGURY //
                 piece_already_picked <= '0;
+                figure_taken <= '0;
             end else if (pick_piece == 1 & piece_already_picked == 0 & board[figure_position[5:3]][figure_position[2:0]] != '0) begin
                 figure_taken <= board[figure_position[5:3]][figure_position[2:0]];
                 board[figure_position[5:3]][figure_position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //

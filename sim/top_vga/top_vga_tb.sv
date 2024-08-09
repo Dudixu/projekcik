@@ -76,8 +76,8 @@ top_vga dut (
 initial begin
     force dut.xpos_buf_out = 330;
     force dut.ypos_buf_out = 200;
-    force dut.p_pos = 50;
-    force dut.figure_taken = 1;
+    force dut.p_pos = 32;
+    force dut.figure_taken = 4;
 end
 
 tiff_writer #(
