@@ -32,38 +32,241 @@ always_comb begin
 // RUCHY PIONKA BIAŁEGO //
 if(selected_figure == 4'H1)begin
     if(board[row - 1][col] == 4'H0)begin
-        result[63 - position - 8] = 1;
+        result[position - 8] = 1;
     end
-    else if(board[row - 1 ][col - 1] > 4'H6)begin
-        result[63 - ((row - 1) * 8 - col - 1)] = 1;
+    else if(board[row - 1 ][col - 1] > 4'H6 & col != 0)begin
+        result[((row - 1) * 8 - col - 1)] = 1;
     end
-    else if(board[row - 1][col + 1] > 4'H6)begin
-         result[63 - ((row - 1) * 8 - col + 1)] = 1;
+    else if(board[row - 1][col + 1] > 4'H6 & col != 7)begin
+         result[((row - 1) * 8 - col + 1)] = 1;
     end
     else if(row == 6 & board[row - 2][col] == 4'h0) begin
-        result[63 - position - 16] = 1;
+        result[position - 16] = 1;
     end
 end 
 // RUCHY PIONKA CZARNEGO //
 else if(selectrd_figure == 4'h7)begin
     if(board[row +1][col] == 4'H0)begin
-        result[63 - position + 8] = 1;
+        result[position + 8] = 1;
     end
-    else if(board[row + 1 ][col + 1] < 4'H7)begin
-        result[63 - ((row + 1) * 8 - col + 1)] = 1;
+    else if(board[row + 1 ][col + 1] < 4'H7 & col != 7)begin
+        result[((row + 1) * 8 - col + 1)] = 1;
     end
-    else if(board[row + 1][col - 1] < 4'H7)begin
-        result[63 - ((row + 1) * 8 - col - 1)] = 1;
+    else if(board[row + 1][col - 1] < 4'H7 & col != 0)begin
+        result[((row + 1) * 8 - col - 1)] = 1;
     end
     else if(row == 1 & board[row + 2][col] == 4'h0) begin
-        result[63 - position + 16] = 1;
+        result[position + 16] = 1;
     end
 end 
-
-else if(selected_figure == 4'h2)begin
-
-end     
+// RUCHY GOŃCÓW ( i królowych)//
     
+else if(selected_figure == 4'h2 | selected_figure == 4'h8 | selected_figure == 4'h5 | selected_figure == 4'hB)begin
+    // prawy dół //
+    for(int i = 1; i < 8; i++)begin
+        if(col + i < 8 & row + i < 8 & board[row + i][col +i] == 0)begin
+            result[(row + i) * 8 + (col + i)] = 1;
+        end else if(col + i < 8 & row + i < 8 & board[row + i][col + i] > 4'h6 & (selected_figure == 4'h2 | selected_figure == 4'h5))begin
+            result[(row + i) * 8 + (col + i)] = 1;
+            break;
+        end else if(col + i < 8 & row + i < 8 & board[row + i][col + i] < 4'h7 & (selected_figure == 4'h8 | selected_figure == 4'hB))begin
+            result[(row + i) * 8 + (col + i)] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+    // lewy dól //
+    for(int i = 1; i < 8; i++)begin
+        if(col - i >= 0 & row + i < 8 & board[row + i][col - i] == 0)begin
+            result[(row + i) * 8 + (col - i)] = 1;
+        end else if(col - i >= 0 & row + i < 8 & board[row + i][col - i] > 4'h6 & (selected_figure == 4'h2 | selected_figure == 4'h5))begin
+            result[(row + i) * 8 + (col - i)] = 1;
+            break;
+        end else if(col - i >= 0 & row + i < 8 & board[row + i][col - i] < 4'h7 & (selected_figure == 4'h8 | selected_figure == 4'hB))begin
+            result[(row + i) * 8 + (col - i)] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end 
+    // prawa góra //
+    for(int i = 1; i < 8; i++)begin
+        if(col + i < 8 & row - i >= 0 & board[row - i][col + i] == 0)begin
+            result[(row - i) * 8 + (col + i)] = 1;
+        end else if(col + i < 8 & row - i >= 0 & board[row - i][col + i] > 4'h6 & (selected_figure == 4'h2 | selected_figure == 4'h5))begin
+            result[(row - i) * 8 + (col + i)] = 1;
+            break;
+        end else if(col + i < 8 & row - i >= 0 & board[row - i][col + i] < 4'h7 & (selected_figure == 4'h8 | selected_figure == 4'hB))begin
+            result[(row - i) * 8 + (col + i)] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+    // lewa góra //
+    for(int i = 1; i < 8; i++)begin
+        if(col - i >= 0 & row - i >= 0 & board[row - i][col - i] == 0)begin
+            result[(row - i) * 8 + (col - i)] = 1;
+        end else if(col - i >= 0 & row - i >= 0 & board[row - i][col - i] > 4'h6 & (selected_figure == 4'h2 | selected_figure == 4'h5))begin
+            result[(row - i) * 8 + (col - i)] = 1;
+            break;
+        end else if(col - i >= 0 & row - i >= 0 & board[row - i][col - i] < 4'h7 & (selected_figure == 4'h8 | selected_figure == 4'hB))begin
+            result[(row - i) * 8 + (col - i)] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+end     
+// RUCHY WIEŻ ( i Królowych) //
+else if(selected_figure == 4'h4 | selected_figure == 4'hA | selected_figure == 4'h5 | selected_figure == 4'hB)begin 
+    // GÓRA //
+    for(int i = 1; i < 8; i++)begin
+        if(row - i >= 0 & board[row-i][col] == 0)begin
+            result[(row - i) * 8 + col] = 1;
+        end else if(row - i >= 0 & board[row-i][col] > 4'h6 & (selected_figure == 4'h4 | selected_figure == 4'h5))begin
+            result[(row - i) * 8 + col] = 1;
+            break;
+        end else if(row - i >= 0 & board[row-i][col] < 4'h7 & (selected_figure == 4'hA | selected_figure == 4'hB))begin
+            result[(row - i) * 8 + col] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+    // dół //
+    for(int i = 1; i < 8; i++)begin
+        if(row + i < 8 & board[row+i][col] == 0)begin
+            result[(row + i) * 8 + col] = 1;
+        end else if(row + i < 8 & board[row+i][col] > 4'h6 & (selected_figure == 4'h4 | selected_figure == 4'h5))begin
+            result[(row + i) * 8 + col] = 1;
+            break;
+        end else if(row + i < 8 & board[row+i][col] < 4'h7 & (selected_figure == 4'hA | selected_figure == 4'hB))begin
+            result[(row + i) * 8 + col] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+    // LEWO // 
+    for(int i = 1; i < 8; i++)begin
+        if(col - i >= 0 & board[row][col - i] == 0)begin
+            result[(col - i) * 8 + col] = 1;
+        end else if(col - i >= 0 & board[row][col - i] > 4'h6 & (selected_figure == 4'h4 | selected_figure == 4'h5))begin
+            result[row * 8 + col - i] = 1;
+            break;
+        end else if(col - i >= 0 & board[row][col - i] < 4'h7 & (selected_figure == 4'hA | selected_figure == 4'hB))begin
+            result[row * 8 + col - i] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+    
+    // PRAWO //
+    for(int i = 1; i < 8; i++)begin
+        if(col + i >= 0 & board[row][col + i] == 0)begin
+            result[(col + i) * 8 + col] = 1;
+        end else if(col + i < 8 & board[row][col + i] > 4'h6 & (selected_figure == 4'h4 | selected_figure == 4'h5))begin
+            result[row * 8 + col + i] = 1;
+            break;
+        end else if(col + i < 8 & board[row][col + i] < 4'h7 & (selected_figure == 4'hA | selected_figure == 4'hB))begin
+            result[row * 8 + col + i] = 1;
+            break;
+        end else begin
+            break;
+        end
+    end
+// RUCHY KONIA BIAŁEGO //
+else if(selected_figure == 4'h3)begin
+    
+    if(board[row - 2][col + 1] == 4'h0 | board[row - 2][col + 1] > 4'h6)begin
+        result[(row - 2)*8 + col + 1] = 1;
+    end else if(board[row - 2][col - 1] == 4'h0 | board[row - 2][col - 1] > 4'h6)begin
+        result[(row - 2)*8 + col - 1] = 1;
+    end else if(board[row + 2][col + 1] == 4'h0 | board[row + 2][col +1] > 4'h6)begin
+        result[(row + 2)*8 + col + 1] = 1;
+    end else if(board[row + 2][col - 1] == 4'h0 | board[row + 2][col - 1] > 4'h6)begin
+        result[(row + 2)*8 + col - 1] = 1;
+    end else if(board[row - 1][col + 2] == 4'h0 | board[row - 1][col + 2] > 4'h6)begin
+        result[(row - 1)*8 + col + 2] = 1;
+    end else if(board[row - 1][col - 2] == 4'h0 | board[row - 1][col - 2] > 4'h6)begin
+        result[(row - 1)*8 + col - 2] = 1;
+    end else if(board[row + 1][col + 2] == 4'h0 | board[row + 1][col + 2] > 4'h6)begin
+        result[(row + 1)*8 + col + 2] = 1;
+    end else if(board[row + 1][col - 2] == 4'h0 | board[row + 1][col - 2] > 4'h6)begin
+        result[(row + 1)*8 + col - 2] = 1;
+    end else
+    end
+end
+// RUCHY CZARNEGO KONIA //    
+else if(selected_figure == 4'h9)begin
+    
+    if(board[row - 2][col + 1] == 4'h0 | board[row - 2][col + 1] < 4'h7)begin
+        result[(row - 2)*8 + col + 1] = 1;
+    end else if(board[row - 2][col - 1] == 4'h0 | board[row - 2][col - 1] < 4'h7)begin
+        result[(row - 2)*8 + col - 1] = 1;
+    end else if(board[row + 2][col + 1] == 4'h0 | board[row + 2][col +1] < 4'h7)begin
+        result[(row + 2)*8 + col + 1] = 1;
+    end else if(board[row + 2][col - 1] == 4'h0 | board[row + 2][col - 1] < 4'h7)begin
+        result[(row + 2)*8 + col - 1] = 1;
+    end else if(board[row - 1][col + 2] == 4'h0 | board[row - 1][col + 2] < 4'h7)begin
+        result[(row - 1)*8 + col + 2] = 1;
+    end else if(board[row - 1][col - 2] == 4'h0 | board[row - 1][col - 2] < 4'h7)begin
+        result[(row - 1)*8 + col - 2] = 1;
+    end else if(board[row + 1][col + 2] == 4'h0 | board[row + 1][col + 2] < 4'h7)begin
+        result[(row + 1)*8 + col + 2] = 1;
+    end else if(board[row + 1][col - 2] == 4'h0 | board[row + 1][col - 2] < 4'h7)begin
+        result[(row + 1)*8 + col - 2] = 1;
+    end else 
+    end
+end
+//bialy król//
+else if(selected_figure == 4'h6)begin
+    
+    if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] > 4'h6)begin
+        result[(row - 1)*8 + col + 1] = 1;
+    end else if(board[row - 1][col - 1] == 4'h0 | board[row - 1][col - 1] > 4'h6)begin
+        result[(row - 1)*8 + col - 1] = 1;
+    end else if(board[row + 1][col + 1] == 4'h0 | board[row + 1][col + 1] > 4'h6)begin
+        result[(row + 1)*8 + col + 1] = 1;
+    end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] > 4'h6)begin
+        result[(row + 1)*8 + col - 1] = 1;
+    end else if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] > 4'h6)begin
+        result[(row - 1)*8 + col + 1] = 1;
+    end else if(board[row - 1][col - 1] == 4'h0 | board[row - 1][col - 1] > 4'h6)begin
+        result[(row - 1)*8 + col - 1] = 1;
+    end else if(board[row + 1][col + 1] == 4'h0 | board[row + 1][col + 1] > 4'h6)begin
+        result[(row + 1)*8 + col + 1] = 1;
+    end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] > 4'h6)begin
+        result[(row + 1)*8 + col - 1] = 1;
+    end else
+    end
+end    
+// czarny król //
+else if(selected_figure == 4'hC)begin
+
+    
+    if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] < 4'h7)begin
+        result[(row - 1)*8 + col + 1] = 1;
+    end else if(board[row - 1][col - 1] == 4'h0 | board[row - 1][col - 1] < 4'h7)begin
+        result[(row - 1)*8 + col - 1] = 1;
+    end else if(board[row + 1][col + 1] == 4'h0 | board[row + 1][col +1] < 4'h7)begin
+        result[(row + 1)*8 + col + 1] = 1;
+    end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] < 4'h7)begin
+        result[(row + 1)*8 + col - 1] = 1;
+    end else if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] < 4'h7)begin
+        result[(row - 1)*8 + col + 1] = 1;
+    end else if(board[row - 1][col - 1] == 4'h0 | board[row - 1][col - 1] < 4'h7)begin
+        result[(row - 1)*8 + col - 1] = 1;
+    end else if(board[row + 1][col + 1] == 4'h0 | board[row + 1][col + 1] < 4'h7)begin
+        result[(row + 1)*8 + col + 1] = 1;
+    end else if(board[row + 1][col - 1] == 4'h0 | board[row + 1][col - 1] < 4'h7)begin
+        result[(row + 1)*8 + col - 1] = 1;
+    end else 
+    end
+end
 else begin
     result = 0;
 end
