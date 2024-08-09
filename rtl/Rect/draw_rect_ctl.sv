@@ -8,9 +8,9 @@ import vga_pkg::*; (
     input logic        mouse_left,
     input logic [11:0] mouse_xpos,
     input logic [11:0] mouse_ypos,
-
-    output logic [11:0] xpos,
-    output logic [11:0] ypos
+    output logic [5:0] mouse_position,
+    output logic pick_piece,
+    output logic place_piece
 );
 
 localparam acceleration = 2;
