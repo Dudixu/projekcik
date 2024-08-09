@@ -40,9 +40,32 @@ if(selected_figure == 4'H1)begin
     else if(board[row - 1][col + 1] > 4'H6)begin
          result[63 - ((row - 1) * 8 - col + 1)] = 1;
     end
-    else if(row == 6) begin
+    else if(row == 6 & board[row - 2][col] == 4'h0) begin
         result[63 - position - 16] = 1;
     end
+end 
+// RUCHY PIONKA CZARNEGO //
+else if(selectrd_figure == 4'h7)begin
+    if(board[row +1][col] == 4'H0)begin
+        result[63 - position + 8] = 1;
+    end
+    else if(board[row + 1 ][col + 1] < 4'H7)begin
+        result[63 - ((row + 1) * 8 - col + 1)] = 1;
+    end
+    else if(board[row + 1][col - 1] < 4'H7)begin
+        result[63 - ((row + 1) * 8 - col - 1)] = 1;
+    end
+    else if(row == 1 & board[row + 2][col] == 4'h0) begin
+        result[63 - position + 16] = 1;
+    end
+end 
+
+else if(selected_figure == 4'h2)begin
+
+end     
+    
+else begin
+    result = 0;
 end
 
 end
