@@ -53,7 +53,7 @@ module chess_board
                 board[figure_position[5:3]][figure_position[2:0]] <= figure_taken;     // WPISANIE KODU FIGURY //
                 piece_already_picked <= '0;
                 figure_taken <= '0;
-            end else if (pick_piece == 1 & piece_already_picked == 0 & board[figure_position[5:3]][figure_position[2:0]] != '0) begin
+            end else if (pick_piece == 1 & piece_already_picked == 0) begin
                 figure_taken <= board[figure_position[5:3]][figure_position[2:0]];
                 board[figure_position[5:3]][figure_position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //
                 piece_already_picked <= '1;
