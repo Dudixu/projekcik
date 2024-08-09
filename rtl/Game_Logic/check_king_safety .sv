@@ -21,12 +21,7 @@ module check_king_safety
 
     // Możliwe ruchy skoczka ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const int knight_moves[8][2] = '{
-        '{-2, -1}, '{-2,  1}, 
-        '{-1, -2}, '{-1,  2}, 
-        '{ 1, -2}, '{ 1,  2}, 
-        '{ 2, -1}, '{ 2,  1}
-    };
+    const int knight_moves[8][2] = '{'{-2, -1}, '{-2,  1}, '{-1, -2}, '{-1,  2}, '{ 1, -2}, '{ 1,  2}, '{ 2, -1}, '{ 2,  1} };
 
     // SPRAWDZANIE WSZYSTKICH MOŻLIWYCH KOMBINACJI PÓL W PRZYPADKU SZACHU ////////////////////////////////////////////////////////////
     always_comb begin
