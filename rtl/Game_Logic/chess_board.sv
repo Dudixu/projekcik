@@ -6,7 +6,7 @@
 // Project Name : SZACHY - Projekt zaliczeniowy
 // Target Devices : BASYS3
 // 
-// Description : 
+// Description : Modifykowanie połozenia figur na planszy i inicjacja planszy
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module chess_board 
@@ -28,6 +28,7 @@ module chess_board
     always_ff @(posedge clk, posedge rst) begin
         
         // INICIALIZACJA PLANSZY ////////////////////////////////////////////////////////////////////////////////////////////////////
+        
         if (rst) begin
 
             // FIGURY //
@@ -43,6 +44,7 @@ module chess_board
             pp_pos <= '0;
             figure_taken <= '0;
             figure_code <= '0;
+
         // MODYFIKACJA POSZCEGÓLNYCH POZYCJI W TRAKCIE ROZGRYWKI ////////////////////////////////////////////////////////////////////
 
         end else begin

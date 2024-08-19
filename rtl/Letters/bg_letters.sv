@@ -2,11 +2,11 @@
 // Company : AGH University of Krakow
 // Create Date : 23.07.2024
 // Designers Name : Dawid Mironiuk & Michał Malara
-// Module Name : bg_Letters
+// Module Name : bg_letters
 // Project Name : SZACHY - Projekt zaliczeniowy
 // Target Devices : BASYS3
 // 
-// Description : Moduł odpowiedzialny za połoenie figur na szachownicy.
+// Description : Generacja opisu pól na planszy.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1 ns / 1 ps
