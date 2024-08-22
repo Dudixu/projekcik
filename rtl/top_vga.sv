@@ -61,6 +61,8 @@
  logic  [63:0] possible_moves;
  logic pick_piece;
  logic place_piece;
+ logic white_castle;
+ logic black_castle;
  
  // SIGNALS ASSIGNMENTS ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -116,15 +118,20 @@ chess_board u_chess_board(
     .place_piece(place_piece),
     .pp_pos(p_pos),
     .figure_taken(figure_taken),
-    .possible_moves(possible_moves)
+    .possible_moves(possible_moves),
+    .white_castle(white_castle),
+    .black_castle(black_castle)
 );
 figure_move_logic u_figure_move_logic(
     .clk(clk_65),
     .rst,
+    .pick_piece(pick_piece),
     .selected_figure(figure_taken),
     .board(board),
     .position(p_pos),
-    .possible_moves(possible_moves)
+    .possible_moves(possible_moves),
+    .white_castle(white_castle),
+    .black_castle(black_castle)
 );
 always_comb begin
     figure_addr = {figure_code, figure_line};
@@ -143,12 +150,15 @@ end
 mouse_position u_mouse_position(
     .clk(clk_65),
     .rst,
-    .LMB(mouse_left),
+    .possible_moves(possible_moves),
+    .mouse_left(mouse_left),
+    .board(board),
     .mouse_xpos(xpos_buf_out),
     .mouse_ypos(ypos_buf_out),
     .pick_piece(pick_piece),
     .mouse_position(figure_position),
-    .place_piece(place_piece)
+    .place_piece(place_piece),
+    .vga_in(vga_figure)
 );
 MouseCtl u_MouseCtl(
     .clk(clk_100),

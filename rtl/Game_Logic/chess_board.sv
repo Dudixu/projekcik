@@ -21,9 +21,14 @@ module chess_board
     output logic [3:0] board [0:7][0:7],       // Macierz 8x8 zawierająca kody figur
     output logic [3:0] figure_code,            // kod figury znajduącej się w miejscu figure_xy
     output logic [3:0] figure_taken,
-    output logic [5:0] pp_pos
+    output logic [5:0] pp_pos,
+    output logic white_castle,
+    output logic black_castle,
+    output logic black_win,
+    output logic white_win
 
 );
+    logic piece_already_picked = 0;
 
     always_ff @(posedge clk, posedge rst) begin
         
@@ -44,17 +49,55 @@ module chess_board
             pp_pos <= '0;
             figure_taken <= '0;
             figure_code <= '0;
-
         // MODYFIKACJA POSZCEGÓLNYCH POZYCJI W TRAKCIE ROZGRYWKI ////////////////////////////////////////////////////////////////////
 
         end else begin
-            if (place_piece == 1) begin
-                board[figure_position[5:3]][figure_position[2:0]] <= figure_taken;     // WPISANIE KODU FIGURY //
+            if (place_piece == 1 & piece_already_picked == 1) begin
+                if(figure_taken == 4'h1 & figure_position[5:3] == 0)begin             // PIONEK NA KÓÓWKA //
+                    board[figure_position[5:3]][figure_position[2:0]] <= 4'h5; 
+                end else if(figure_taken == 4'h7 & figure_position[5:3] == 7)begin
+                    board[figure_position[5:3]][figure_position[2:0]] <= 4'hB; 
+                end else if(figure_position == 62 & board[7][5] == 4'h0 & board[7][6] == 4'h0 & board[7][7] == 4'h4 & figure_taken == 4'h6 & white_castle == 0)begin
+                    board[7][7] <= 4'h0;
+                    board[7][6] <= 4'h6;
+                    board[7][5] <= 4'h4;
+                    board[7][4] <= 4'h0;
+                    white_castle <= '1;
+                end else if(figure_position == 58 & board[7][1] == 4'h0 & board[7][2] == 4'h0 & board[7][3] == 4'h0 & board[7][0] == 4'h4 & figure_taken == 4'h6 & white_castle == 0)begin
+                    board[7][0] <= 4'h0;
+                    board[7][1] <= 4'h0;
+                    board[7][2] <= 4'h6;
+                    board[7][3] <= 4'h4;
+                    board[7][4] <= 4'h0;
+                    white_castle <= '1;
+                end else if(figure_position == 6 & board[0][5] == 4'h0 & board[0][6] == 4'h0 & board[0][7] == 4'hA & figure_taken == 4'hC & black_castle == 0)begin
+                    board[0][7] <= 4'h0;
+                    board[0][6] <= 4'hC;
+                    board[0][5] <= 4'hA;
+                    board[0][4] <= 4'h0;
+                    black_castle <= '1;
+                end else if(figure_position == 2 & board[0][1] == 4'h0 & board[0][2] == 4'h0 & board[0][3] == 4'h0 & board[0][0] == 4'hA & figure_taken == 4'hC & black_castle == 0)begin
+                    board[0][0] <= 4'h0;
+                    board[0][1] <= 4'h0;
+                    board[0][2] <= 4'hC;
+                    board[0][3] <= 4'hA;
+                    board[0][4] <= 4'h0;
+                    black_castle <= '1;
+                end else if(board[figure_position[5:3]][figure_position[2:0]] == 4'h6)begin
+                    black_win <= 1;
+                end else if(board[figure_position[5:3]][figure_position[2:0]] == 4'hC)begin
+                    white_win <= 1;
+                end else begin
+                    board[figure_position[5:3]][figure_position[2:0]] <= figure_taken; // WPISANIE KODU FIGURY //
+                end    
                 figure_taken <= '0;
+                piece_already_picked <= '0;
+
             end else if (pick_piece == 1 & piece_already_picked == 0) begin
                 figure_taken <= board[figure_position[5:3]][figure_position[2:0]];
                 board[figure_position[5:3]][figure_position[2:0]] <= 4'h0;            // USUNIECIE KODU FIGURY //
                 pp_pos <= figure_position;
+                piece_already_picked <= '1;
             end 
             if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[figure_xy] == 1)begin
                 figure_code <= 4'hD;
