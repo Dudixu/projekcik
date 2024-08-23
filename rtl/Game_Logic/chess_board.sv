@@ -6,7 +6,7 @@
 // Project Name : SZACHY - Projekt zaliczeniowy
 // Target Devices : BASYS3
 // 
-// Description : Modifykowanie połozenia figur na planszy i inicjacja planszy
+// Description : 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module chess_board 
@@ -33,7 +33,6 @@ module chess_board
     always_ff @(posedge clk, posedge rst) begin
         
         // INICIALIZACJA PLANSZY ////////////////////////////////////////////////////////////////////////////////////////////////////
-        
         if (rst) begin
 
             // FIGURY //
@@ -49,6 +48,11 @@ module chess_board
             pp_pos <= '0;
             figure_taken <= '0;
             figure_code <= '0;
+            piece_already_picked <= '0;
+            white_castle <= '0;
+            black_castle <= '0;
+            black_win <= '0;
+            white_win <= '0;
         // MODYFIKACJA POSZCEGÓLNYCH POZYCJI W TRAKCIE ROZGRYWKI ////////////////////////////////////////////////////////////////////
 
         end else begin
@@ -99,13 +103,14 @@ module chess_board
                 pp_pos <= figure_position;
                 piece_already_picked <= '1;
             end 
-            if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[figure_xy] == 1)begin
-                figure_code <= 4'hD;
-            end
-            else begin
-                figure_code <= board[figure_xy[5:3]][figure_xy[2:0]];
-            end
+        end
+        if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[figure_xy] == 1)begin
+            figure_code <= 4'hD;
+        end
+        else begin
+            figure_code <= board[figure_xy[5:3]][figure_xy[2:0]];
         end
     end
+ 
 endmodule
 

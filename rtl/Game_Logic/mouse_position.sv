@@ -36,7 +36,7 @@ STATE_T state, state_nxt;
 
 logic pick_piece_nxt, place_piece_nxt;
 logic [5:0] pick_position;
-logic your_turn;
+logic your_turn = 1;
 
 always_ff @(posedge clk, posedge rst) begin : xypos_blk
         if(rst) begin
@@ -91,11 +91,8 @@ always_comb begin : output_blk
         PLACE: begin
             pick_piece_nxt = 0;
             place_piece_nxt = 1;
-            if(pick_position == mouse_position)begin
-                your_turn = 1;
-            end else begin
-                your_turn = 0;
-            end
+            your_turn = 1;
+
         end
 
         default: begin
