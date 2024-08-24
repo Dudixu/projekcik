@@ -66,12 +66,38 @@ if ((vga_in.hcount >= 320 & vga_in.hcount < 704) & vga_in.vcount >= 644 & vga_in
             rgb_nxt = 12'hf_f_f;
         end else if(((vga_in.hcount >= 272 & vga_in.hcount < 296)|(vga_in.hcount >= 728 & vga_in.hcount < 752)|(vga_in.hcount >= 488 & vga_in.hcount < 536))& vga_in.vcount >= 332 & vga_in.vcount < 380)begin
             rgb_nxt = 12'h6_6_6;
-         end else if((vga_in.hcount >= 296 & vga_in.hcount < 488) & (vga_in.hcount >= 536 & vga_in.hcount < 728) & vga_in.vcount >= 332 & vga_in.vcount < 380)begin
+         end else if(((vga_in.hcount >= 296 & vga_in.hcount < 488) | (vga_in.hcount >= 536 & vga_in.hcount < 728)) & vga_in.vcount >= 332 & vga_in.vcount < 380)begin
             rgb_nxt = 12'hf_f_f;
         end else if(((vga_in.hcount >= 272 & vga_in.hcount < 296)|(vga_in.hcount >= 728 & vga_in.hcount < 752)|(vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560))& vga_in.vcount >= 308 & vga_in.vcount < 332)begin
             rgb_nxt = 12'h6_6_6;
-        end else if((vga_in.hcount >= 296 & vga_in.hcount < 464) & (vga_in.hcount >= 488 & vga_in.hcount < 536)& (vga_in.hcount >= 560 & vga_in.hcount < 728) & vga_in.vcount >= 308 & vga_in.vcount < 332)begin
+        end else if(((vga_in.hcount >= 296 & vga_in.hcount < 464) | (vga_in.hcount >= 488 & vga_in.hcount < 536) | (vga_in.hcount >= 560 & vga_in.hcount < 728)) & vga_in.vcount >= 308 & vga_in.vcount < 332)begin
             rgb_nxt = 12'hf_f_f;
+        end else if(((vga_in.hcount >= 296 & vga_in.hcount < 320)|(vga_in.hcount >= 704 & vga_in.hcount < 728)|(vga_in.hcount >= 416 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 608))& vga_in.vcount >= 284 & vga_in.vcount < 308)begin
+            rgb_nxt = 12'h6_6_6; 
+        end else if(((vga_in.hcount >= 320 & vga_in.hcount < 416) | (vga_in.hcount >= 488 & vga_in.hcount < 536) | (vga_in.hcount >= 608 & vga_in.hcount < 704)) & vga_in.vcount >= 284 & vga_in.vcount < 308)begin
+            rgb_nxt = 12'hf_f_f;
+        end else if(((vga_in.hcount >= 320 & vga_in.hcount < 416)|(vga_in.hcount >= 608 & vga_in.hcount < 704)|(vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560))& vga_in.vcount >= 260 & vga_in.vcount < 284)begin
+            rgb_nxt = 12'h6_6_6;
+        end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 260 & vga_in.vcount < 284)begin
+            rgb_nxt = 12'hf_f_f;
+        end else if(((vga_in.hcount >= 440 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 584)) & vga_in.vcount >= 236 & vga_in.vcount < 284)begin
+            rgb_nxt = 12'h6_6_6;
+        end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 236 & vga_in.vcount < 260)begin
+            rgb_nxt = 12'hf_f_f;
+        end else if(((vga_in.hcount >= 416 & vga_in.hcount < 440)|(vga_in.hcount >= 584 & vga_in.hcount < 608)) & vga_in.vcount >= 188 & vga_in.vcount < 236)begin
+            rgb_nxt = 12'h6_6_6;
+        end else if((vga_in.hcount >= 440 & vga_in.hcount < 584) & vga_in.vcount >= 188 & vga_in.vcount < 236)begin
+            rgb_nxt = 12'hf_f_f;
+        end else if(((vga_in.hcount >= 440 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 584)) & vga_in.vcount >= 164 & vga_in.vcount < 188)begin
+            rgb_nxt = 12'h6_6_6;
+        end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 164 & vga_in.vcount < 188)begin
+            rgb_nxt = 12'hf_f_f;
+        end else if(((vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560)) & vga_in.vcount >= 140 & vga_in.vcount < 164)begin
+            rgb_nxt = 12'h6_6_6;
+        end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 140 & vga_in.vcount < 164)begin
+            rgb_nxt = 12'hf_f_f;
+        end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 116 & vga_in.vcount < 140)begin
+            rgb_nxt = 12'h6_6_6;
         end else begin
             rgb_nxt = 12'h0_f_0;
         end

@@ -39,10 +39,6 @@ logic pick_place_nxt;
 logic [5:0] pick_position;
 logic your_turn;
 
-always_ff @(posedge begin_turn, negedge begin_turn) begin
-    your_turn <= '1;
-end
-
 always_ff @(posedge clk) begin : xypos_blk
         if(rst) begin
             state    <= IDLE;
