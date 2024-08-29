@@ -28,15 +28,14 @@ module top_vga_tb;
 /**
  *  Local parameters
  */
-
-localparam CLK_PERIOD_65 = 15;
+localparam CLK_PERIOD_75 = 13;
 localparam CLK_PERIOD_100 = 10;
 
 /**
  * Local variables and signals
  */
 
-logic clk_65, clk_100, rst;
+logic clk_75, clk_100, rst;
 wire vs, hs;
 wire [3:0] r, g, b;
 
@@ -46,8 +45,8 @@ wire [3:0] r, g, b;
  */
 
 initial begin
-    clk_65 = 1'b0;
-    forever #(CLK_PERIOD_65/2) clk_65 = ~clk_65;
+    clk_75 = 1'b0;
+    forever #(CLK_PERIOD_75/2) clk_75 = ~clk_75;
 end
 
 initial begin
@@ -61,7 +60,7 @@ end
  */
 
 top_vga dut (
-    .clk_65,
+    .clk_75,
     .clk_100,
     .ps2_clk(),
     .ps2_data(),
@@ -76,8 +75,7 @@ top_vga dut (
 initial begin
     force dut.xpos_buf_out = 330;
     force dut.ypos_buf_out = 200;
-    force dut.p_pos = 32;
-    force dut.figure_taken = 4;
+    force dut.white_wins = '1;
 end
 
 tiff_writer #(
@@ -85,7 +83,7 @@ tiff_writer #(
     .YDIM(16'd806),
     .FILE_DIR("../../results")
 ) u_tiff_writer (
-    .clk(clk_65),
+    .clk(clk_75),
     .r({r,r}), // fabricate an 8-bit value
     .g({g,g}), // fabricate an 8-bit value
     .b({b,b}), // fabricate an 8-bit value

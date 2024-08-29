@@ -13,16 +13,14 @@ sv work ../../rtl/vga_pkg.sv \
         ../../rtl/vga_timing.sv \
         ../../rtl/vga_if.sv \
         ../../rtl/draw_bg.sv \
-        ../../rtl/Rect/draw_rect.sv \
-        ../../rtl/Rect/mouse_position.sv \
         ../../rtl/top_vga.sv \
         ../../rtl/delay.sv \
+        ../../rtl/draw_win.sv \
         ../../rtl/Figure/draw_figure.sv \
-        ../../rtl/Figure/figure_position.sv \
         ../../rtl/Figure/figure_rom.sv \
         ../../rtl/Game_Logic/chess_board.sv \
         ../../rtl/Game_Logic/figure_move_logic.sv \
-        ../../rtl/Game_Logic/waiting_for_player.sv \
+        ../../rtl/Game_Logic/mouse_position.sv \
         ../../rtl/Letters/bg_letters.sv \
         ../../rtl/Letters/font_rom.sv \
         ../../rtl/Mouse/draw_mouse.sv \
