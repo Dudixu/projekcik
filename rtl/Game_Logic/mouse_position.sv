@@ -27,6 +27,7 @@ import vga_pkg::*; (
     output logic [5:0] mouse_position,
     output logic       pick_place,
     output logic       next_turn,
+    output logic [3:0] led,
     vga_if.in vga_in
 );
 typedef enum bit [1:0]{
@@ -41,13 +42,14 @@ STATE_T state, state_nxt;
 logic pick_place_nxt;
 logic next_turn_nxt = 0;
 logic [5:0] pick_position;
+logic [5:0] mouse_pos_buf;
 logic force_turn;
 logic turn_forced;
+logic begin_turn_spike;
 logic player_already_set = 0;
 logic player_token;
 logic your_turn;
 logic your_turn_nxt;
-logic prev_begin_turn;
 
 always_ff @(posedge clk) begin : xypos_blk
         if(rst) begin
@@ -58,11 +60,22 @@ always_ff @(posedge clk) begin : xypos_blk
             player_already_set <= '0;
             next_turn <= '0;
             your_turn <= '0;
+            begin_turn_spike <= '0;
             player_token <= '1;
-            prev_begin_turn <= '1;
         end else begin
-            if(vga_in.hcount == 0 & vga_in.vcount == 0) begin
+            if(vga_in.hcount == 300 & vga_in.vcount == 300)begin
+                if(begin_turn_spike == 1)begin
+                    force_turn <= '1;
+                    begin_turn_spike <= '0;
+                end
+            end else if(vga_in.hcount == 0 & vga_in.vcount == 0) begin
+                mouse_pos_buf[5:3] <= (mouse_ypos-128)/64;
+                mouse_pos_buf[2:0] <= (mouse_xpos-256)/64;
                 state    <= state_nxt;
+                next_turn <= next_turn_nxt;
+                if(begin_turn == 1)begin
+                    begin_turn_spike <= '1;
+                end
                 if(turn_forced == '1)begin
                     force_turn <= '0;
                 end else if(player_already_set == 0 & set_player == 1)begin
@@ -72,20 +85,14 @@ always_ff @(posedge clk) begin : xypos_blk
                 end  else if(your_turn == 0)begin
                     if(oponent_pick == 1 & player_already_set == 0)begin
                         player_already_set <= '1;
-                    end else if(player_token == begin_turn & begin_turn != prev_begin_turn)begin
-                        force_turn <= '1;
-                        prev_begin_turn <= begin_turn;
-                    end
+                    end 
                     your_turn <= your_turn_nxt;
-                    next_turn <= next_turn_nxt; 
                     pick_place <= oponent_pick;
                     mouse_position <= oponent_position;
                 end else begin
                     your_turn <= your_turn_nxt;
-                    next_turn <= next_turn_nxt;
                     pick_place <= pick_place_nxt;
-                    mouse_position[5:3] <= (mouse_ypos-128)/64;
-                    mouse_position[2:0] <= (mouse_xpos-256)/64;
+                    mouse_position <= mouse_pos_buf;
                 end
             end
         end
@@ -93,9 +100,9 @@ end
 
 always_comb begin : state_nxt_blk
     case(state)
-        IDLE:       state_nxt = mouse_left && your_turn && board[mouse_position[5:3]][mouse_position[2:0]] != '0 ? PICK : IDLE;
+        IDLE:       state_nxt = mouse_left && your_turn && ((player_token == '0 & board[mouse_pos_buf[5:3]][mouse_pos_buf[2:0]] <= 4'h6) | (player_token == '1 && board[mouse_pos_buf[5:3]][mouse_pos_buf[2:0]] >= 4'h7)) & board[mouse_pos_buf[5:3]][mouse_pos_buf[2:0]] != '0 ? PICK : IDLE;
         PICK:       state_nxt = mouse_left ? PICK : WAIT;
-        WAIT:       state_nxt = mouse_left && possible_moves[mouse_position] == '1 ? PLACE : WAIT;
+        WAIT:       state_nxt = mouse_left && possible_moves[mouse_pos_buf] == '1 ? PLACE : WAIT;
         PLACE:      state_nxt = mouse_left ? PLACE : IDLE;
 
         default:    state_nxt = IDLE;
@@ -109,29 +116,33 @@ always_comb begin : output_blk
             pick_place_nxt = '0;
             if(force_turn == 1)begin
                 your_turn_nxt = '1;
-                next_turn_nxt = player_token;
+            end else if(next_turn == 1) begin
+                next_turn_nxt = '0;
             end
             turn_forced = '0;
+            led = 4'b1000;
         end
 
         PICK: begin
-            pick_place_nxt = '1;
-            pick_position = mouse_position;
+            pick_position = mouse_pos_buf;
             turn_forced = '1;
+            pick_place_nxt = '1;
+            led = 4'b0100;
         end
 
         WAIT: begin
             pick_place_nxt = '1;
-
+            led = 4'b0010;
         end
         PLACE: begin
             pick_place_nxt = '0;
-            turn_forced = '1;
-            if(pick_position == mouse_position)begin
+            led = 4'b0001;
+            if(pick_position == mouse_pos_buf)begin
                 your_turn_nxt = '1;
-            end else begin
+                next_turn_nxt = '0;
+            end else if (pick_position != mouse_pos_buf)begin
                 your_turn_nxt = '0;
-                next_turn_nxt = !player_token;
+                next_turn_nxt = '1;
             end
 
         end

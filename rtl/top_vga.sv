@@ -28,7 +28,8 @@
      output logic hs,
      output logic [3:0] r,
      output logic [3:0] g,
-     output logic [3:0] b
+     output logic [3:0] b,
+     output logic [3:0] led
  );
  
  
@@ -168,7 +169,8 @@ mouse_position u_mouse_position(
     .begin_turn(data_in[7]),
     .next_turn(data_out[7]),
     .oponent_pick(data_in[6]),
-    .oponent_position(data_in[5:0])
+    .oponent_position(data_in[5:0]),
+    .led(led)
 );
 always_comb begin
     data_out[6:0] = {pick_place, figure_position};
