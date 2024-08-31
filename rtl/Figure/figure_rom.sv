@@ -30,7 +30,6 @@ module figure_rom
         
     always_comb begin
         case (addr)
-            // 00-bg 01-szary 10-biła 11-czarny
             // CODE x00 PUSTE POLE //////////////
             9'h000: data = 64'h0000000000000000;
             9'h001: data = 64'h0000000000000000;

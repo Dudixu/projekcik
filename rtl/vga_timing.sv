@@ -13,6 +13,8 @@ module vga_timing
 (
     input  logic clk,
     input  logic rst,
+    output logic [10:0] hcount,
+    output logic [10:0] vcount,
     vga_if.out vga_out   // Wyjście interfejsu vga_if
 );
 
@@ -37,14 +39,19 @@ always_ff @(posedge clk) begin
         vga_out.vcount <= '0;
         vga_out.vsync <= '0;
         vga_out.vblnk <= '0;
+        vga_out.rgb <= '0; //warning
     end
     else begin
+        hcount <= hcount_nxt;
+        vcount <= vcount_nxt;
         vga_out.hcount <= hcount_nxt;
         vga_out.hsync <= hsync_nxt;
         vga_out.hblnk <= hblnk_nxt;
         vga_out.vcount <= vcount_nxt;
         vga_out.vsync <= vsync_nxt;
         vga_out.vblnk <= vblnk_nxt;
+        vga_out.rgb <= '0; //wwarning
+
     end
 end
 

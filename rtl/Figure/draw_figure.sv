@@ -18,6 +18,8 @@ module draw_figure
     input  logic [63:0]  figure_pixels,
     output logic [5:0]   figure_xy,
     output logic [4:0]   figure_line,
+    output logic [10:0]  hcount,
+    output logic [10:0]  vcount,
     vga_if.in  vga_in,
     vga_if.out vga_out
 );
@@ -35,25 +37,14 @@ logic [10:0]   figure_line_buf;
 
  // INITIAL LOGIC ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-always_ff @(posedge clk) begin
+always_ff @(posedge clk) begin 
     if (rst) begin
         int1.vcount <= '0;
-        int1.vsync  <= '0;
-        int1.vblnk  <= '0;
-        int1.hcount <= '0;
-        int1.hsync  <= '0;
-        int1.hblnk  <= '0;
-        int1.rgb    <= '0;
     end else begin
         int1.vcount <= vga_in.vcount;
-        int1.vsync  <= vga_in.vsync;
-        int1.vblnk  <= vga_in.vblnk;
-        int1.hcount <= vga_in.hcount;
-        int1.hsync  <= vga_in.hsync;
-        int1.hblnk  <= vga_in.hblnk;
-        int1.rgb    <= vga_in.rgb;
     end
 end
+
 
 delay #(
     .WIDTH(38),
@@ -67,13 +58,15 @@ delay #(
 );
 
 always_ff @(posedge clk) begin
+    vcount <= int2.vcount;
+    hcount <= int2.hcount;
     vga_out.vcount <= int2.vcount;
     vga_out.vsync  <= int2.vsync;
     vga_out.vblnk  <= int2.vblnk;
     vga_out.hcount <= int2.hcount;
     vga_out.hsync  <= int2.hsync;
     vga_out.hblnk  <= int2.hblnk;
-    vga_out.rgb    <= rgb_nxt;
+    vga_out.rgb <= rgb_nxt;
 end
 
 always_comb begin

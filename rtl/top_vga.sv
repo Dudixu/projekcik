@@ -51,6 +51,11 @@
  logic  [10:0] char_addr;
  logic  [7:0]  char_pixels;
 
+ logic  [10:0] hcount;
+ logic  [10:0] vcount;
+ logic  [10:0] hcount_timing;
+ logic  [10:0] vcount_timing;
+
  logic  [63:0] figure_pixels;
  logic  [8:0]  figure_addr;
  logic  [5:0]  figure_xy;
@@ -81,11 +86,15 @@
  vga_timing u_vga_timing (
      .clk(clk_75),
      .rst,
+     .hcount(hcount_timing),
+     .vcount(vcount_timing),
      .vga_out(vga_tim)
  );
 
 bg_letters u_bg_letters(
-    .vga_in(vga_tim),
+    //.vga_in(vga_tim),
+    .vcount(vcount_timing),
+    .hcount(hcount_timing),
     .char_addr(char_addr)
 );
 
@@ -108,6 +117,8 @@ draw_figure u_draw_figure (
     .rst,
     .vga_in(vga_bg),
     .vga_out(vga_figure),
+    .hcount(hcount),
+    .vcount(vcount),
     .figure_pixels(figure_pixels),
     .figure_xy(figure_xy),
     .figure_line(figure_line)
@@ -172,7 +183,8 @@ mouse_position u_mouse_position(
     .mouse_ypos(ypos_buf_out),
     .pick_place(pick_place),
     .mouse_position(figure_position),
-    .vga_in(vga_figure),
+    .vcount(vcount),
+    .hcount(hcount),
     .begin_turn(data_in[7]),
     .next_turn(data_out[7]),
     .oponent_pick(data_in[6]),

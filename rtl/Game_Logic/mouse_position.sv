@@ -17,6 +17,8 @@ module mouse_position
     input logic        rst,
     input logic  [3:0] board[0:7][0:7],
     input logic        mouse_left,
+    input logic [10:0] hcount,
+    input logic [10:0] vcount,
     input logic [63:0] possible_moves,
     input logic [11:0] mouse_xpos,
     input logic [11:0] mouse_ypos,
@@ -27,8 +29,8 @@ module mouse_position
     output logic [5:0] mouse_position,
     output logic       pick_place,
     output logic       next_turn,
-    output logic [3:0] led,
-    vga_if.in vga_in
+    output logic [3:0] led
+    //vga_if.in vga_in
 );
 
 import vga_pkg::*;
@@ -61,12 +63,12 @@ always_ff @(posedge clk) begin : xypos_blk
             begin_turn_spike <= '0;
             player_token <= '1;
         end else begin
-            if(vga_in.hcount == 300 & vga_in.vcount == 300)begin
+            if(hcount == 300 & vcount == 300)begin
                 if(begin_turn_spike == 1)begin
                     force_turn <= '1;
                     begin_turn_spike <= '0;
                 end
-            end else if(vga_in.hcount == 0 & vga_in.vcount == 0) begin
+            end else if(hcount == 0 & vcount == 0) begin
                 mouse_pos_buf[5:3] <= (mouse_ypos-128)/64;
                 mouse_pos_buf[2:0] <= (mouse_xpos-256)/64;
                 state    <= state_nxt;

@@ -1,77 +1,25 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2024-08-31 00:03:46
+Created: 2024-08-31 21:26:07
 
 ----SYNTHESIS----
-WARNING: [Synth 8-3848] Net vga_out\.rgb in module/entity vga_timing does not have driver. [rtl/vga_timing.sv:16]
-WARNING: [Synth 8-3936] Found unconnected internal register 'char_line_buf_reg' and it is trimmed from '11' to '4' bits. [rtl/Letters/bg_letters.sv:26]
-WARNING: [Synth 8-6014] Unused sequential element vsync_reg was removed.  [rtl/Figure/draw_figure.sv:41]
-WARNING: [Synth 8-6014] Unused sequential element vblnk_reg was removed.  [rtl/Figure/draw_figure.sv:42]
-WARNING: [Synth 8-6014] Unused sequential element hcount_reg was removed.  [rtl/Figure/draw_figure.sv:43]
-WARNING: [Synth 8-6014] Unused sequential element hsync_reg was removed.  [rtl/Figure/draw_figure.sv:44]
-WARNING: [Synth 8-6014] Unused sequential element hblnk_reg was removed.  [rtl/Figure/draw_figure.sv:45]
-WARNING: [Synth 8-6014] Unused sequential element rgb_reg was removed.  [rtl/Figure/draw_figure.sv:46]
+WARNING: [Synth 8-6014] Unused sequential element vga_out\.vcount_reg was removed.  [rtl/Figure/draw_figure.sv:63]
+WARNING: [Synth 8-6014] Unused sequential element vga_out\.hcount_reg was removed.  [rtl/Figure/draw_figure.sv:66]
 WARNING: [Synth 8-5856] 3D RAM board_reg  for this pattern/configuration is not supported. This will most likely be implemented in registers
-WARNING: [Synth 8-87] always_comb on 'data_reg' did not result in combinational logic [rtl/Figure/figure_rom.sv:35]
-WARNING: [Synth 8-87] always_comb on 'your_turn_nxt_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:118]
-WARNING: [Synth 8-87] always_comb on 'next_turn_nxt_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:120]
-WARNING: [Synth 8-87] always_comb on 'turn_forced_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:122]
-WARNING: [Synth 8-87] always_comb on 'pick_position_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:127]
+WARNING: [Synth 8-87] always_comb on 'data_reg' did not result in combinational logic [rtl/Figure/figure_rom.sv:34]
+WARNING: [Synth 8-87] always_comb on 'your_turn_nxt_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:121]
+WARNING: [Synth 8-87] always_comb on 'next_turn_nxt_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:123]
+WARNING: [Synth 8-87] always_comb on 'turn_forced_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:125]
+WARNING: [Synth 8-87] always_comb on 'pick_position_reg' did not result in combinational logic [rtl/Game_Logic/mouse_position.sv:131]
 WARNING: [Synth 8-6014] Unused sequential element set_x.inc_reg was removed.  [rtl/Mouse/MouseCtl.vhd:450]
 WARNING: [Synth 8-6014] Unused sequential element set_x.x_inter_reg was removed.  [rtl/Mouse/MouseCtl.vhd:456]
 WARNING: [Synth 8-6014] Unused sequential element set_y.inc_reg was removed.  [rtl/Mouse/MouseCtl.vhd:514]
 WARNING: [Synth 8-6014] Unused sequential element set_y.y_inter_reg was removed.  [rtl/Mouse/MouseCtl.vhd:520]
-WARNING: [Synth 8-3848] Net vga_out\.hblnk in module/entity draw_mouse does not have driver. [rtl/Mouse/draw_mouse.sv:7]
-WARNING: [Synth 8-7129] Port vga_out\.hblnk in module draw_mouse is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vsync in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vblnk in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hsync in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hblnk in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[11] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[10] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[9] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[8] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[7] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[6] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[5] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[4] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[3] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[2] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[1] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[0] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vsync in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vblnk in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hsync in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hblnk in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[11] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[10] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[9] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[8] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[7] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[6] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[5] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[4] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[3] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[2] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[1] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[0] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[11] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[10] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[9] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[8] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[7] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[6] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[5] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[4] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[3] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[2] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[1] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[0] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-327] inferring latch for variable 'data_reg' [rtl/Figure/figure_rom.sv:35]
-WARNING: [Synth 8-327] inferring latch for variable 'turn_forced_reg' [rtl/Game_Logic/mouse_position.sv:122]
-WARNING: [Synth 8-327] inferring latch for variable 'your_turn_nxt_reg' [rtl/Game_Logic/mouse_position.sv:118]
-WARNING: [Synth 8-327] inferring latch for variable 'next_turn_nxt_reg' [rtl/Game_Logic/mouse_position.sv:120]
-WARNING: [Synth 8-327] inferring latch for variable 'pick_position_reg' [rtl/Game_Logic/mouse_position.sv:127]
+WARNING: [Synth 8-327] inferring latch for variable 'data_reg' [rtl/Figure/figure_rom.sv:34]
+WARNING: [Synth 8-327] inferring latch for variable 'turn_forced_reg' [rtl/Game_Logic/mouse_position.sv:125]
+WARNING: [Synth 8-327] inferring latch for variable 'your_turn_nxt_reg' [rtl/Game_Logic/mouse_position.sv:121]
+WARNING: [Synth 8-327] inferring latch for variable 'next_turn_nxt_reg' [rtl/Game_Logic/mouse_position.sv:123]
+WARNING: [Synth 8-327] inferring latch for variable 'pick_position_reg' [rtl/Game_Logic/mouse_position.sv:131]
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 
 ----IMPLEMENTATION----
