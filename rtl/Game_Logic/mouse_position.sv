@@ -6,13 +6,13 @@
 // Project Name : SZACHY - Projekt zaliczeniowy
 // Target Devices : BASYS3
 // 
-// Description : Odczytuje połozenie kursora na szachownicy + maszyna stanów odpowiedzialna za wykonywanie ruchu
+// Description : Odczytuje połozenie kursora na szachownicy + maszyna stanów odpowiedzialna za wykonywanie ruchów.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 `timescale 1ns/1ps
 
 module mouse_position
-import vga_pkg::*; (
+ (
     input logic        clk,
     input logic        rst,
     input logic  [3:0] board[0:7][0:7],
@@ -30,12 +30,10 @@ import vga_pkg::*; (
     output logic [3:0] led,
     vga_if.in vga_in
 );
-typedef enum bit [1:0]{
-    IDLE        = 2'b00,
-    WAIT        = 2'b01,
-    PICK        = 2'b10,
-    PLACE       = 2'b11
-} STATE_T;
+
+import vga_pkg::*;
+
+typedef enum bit [1:0]{IDLE = 2'b00, WAIT = 2'b01, PICK = 2'b10, PLACE = 2'b11} STATE_T;
 
 STATE_T state, state_nxt;
 
@@ -98,6 +96,8 @@ always_ff @(posedge clk) begin : xypos_blk
         end
 end
 
+
+// MASZYNA STANU ODPOWIEDZIALNA ZA WYKONANIE RUCHU /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 always_comb begin : state_nxt_blk
     case(state)
         IDLE:       state_nxt = mouse_left && your_turn && ((player_token == '0 & board[mouse_pos_buf[5:3]][mouse_pos_buf[2:0]] <= 4'h6) | (player_token == '1 && board[mouse_pos_buf[5:3]][mouse_pos_buf[2:0]] >= 4'h7)) & board[mouse_pos_buf[5:3]][mouse_pos_buf[2:0]] != '0 ? PICK : IDLE;
@@ -109,9 +109,10 @@ always_comb begin : state_nxt_blk
     endcase  
 end
 
-
+// SYGANŁY STERUACE W POSCZEGÓLNUCH STANACH //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 always_comb begin : output_blk
     case(state)
+        // STAN POCZATKOWY //
         IDLE: begin
             pick_place_nxt = '0;
             if(force_turn == 1)begin
@@ -123,6 +124,7 @@ always_comb begin : output_blk
             led = 4'b1000;
         end
 
+        // PODNOSZENIE FIGURY //
         PICK: begin
             pick_position = mouse_pos_buf;
             turn_forced = '1;
@@ -130,10 +132,13 @@ always_comb begin : output_blk
             led = 4'b0100;
         end
 
+        // STAN POMIĘDZY KLIKNIECIAMI MYSZY //
         WAIT: begin
             pick_place_nxt = '1;
             led = 4'b0010;
         end
+
+        // ODKŁADANIE FIGURY //
         PLACE: begin
             pick_place_nxt = '0;
             led = 4'b0001;
