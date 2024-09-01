@@ -38,20 +38,8 @@ logic [10:0]   figure_line_buf;
 always_ff @(posedge clk) begin
     if (rst) begin
         int1.vcount <= '0;
-        int1.vsync  <= '0;
-        int1.vblnk  <= '0;
-        int1.hcount <= '0;
-        int1.hsync  <= '0;
-        int1.hblnk  <= '0;
-        int1.rgb    <= '0;
     end else begin
         int1.vcount <= vga_in.vcount;
-        int1.vsync  <= vga_in.vsync;
-        int1.vblnk  <= vga_in.vblnk;
-        int1.hcount <= vga_in.hcount;
-        int1.hsync  <= vga_in.hsync;
-        int1.hblnk  <= vga_in.hblnk;
-        int1.rgb    <= vga_in.rgb;
     end
 end
 

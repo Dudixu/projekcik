@@ -20,7 +20,7 @@ module bg_letters
 
 import vga_pkg::*;
 
-logic [10:0] char_line_buf;
+logic [3:0] char_line_buf;
 logic [10:0] char_code_buf; 
 
 always_comb begin

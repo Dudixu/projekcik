@@ -110,7 +110,7 @@ always_comb begin : bg_comb_blk
         end else if(((vga_in.hcount >= 320 & vga_in.hcount < 416) | (vga_in.hcount >= 488 & vga_in.hcount < 536) | (vga_in.hcount >= 608 & vga_in.hcount < 704)) & vga_in.vcount >= 284 & vga_in.vcount < 308)begin
             rgb_nxt = 12'hf_f_f;
         // 17 LINIA RAMKA //
-        end else if(((vga_in.hcount >= 368 & vga_in.hcount < 416)|(vga_in.hcount >= 608 & vga_in.hcount < 656)|(vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560))& vga_in.vcount >= 260 & vga_in.vcount < 284)begin
+        end else if(((vga_in.hcount >= 320 & vga_in.hcount < 416)|(vga_in.hcount >= 608 & vga_in.hcount < 704)|(vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560))& vga_in.vcount >= 260 & vga_in.vcount < 284)begin
             rgb_nxt = 12'h6_6_6;
         // 17 LINIA WYPEŁNIENIE //
         end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 260 & vga_in.vcount < 284)begin
@@ -209,7 +209,7 @@ always_comb begin : bg_comb_blk
         end else if(((vga_in.hcount >= 320 & vga_in.hcount < 416) | (vga_in.hcount >= 488 & vga_in.hcount < 536) | (vga_in.hcount >= 608 & vga_in.hcount < 704)) & vga_in.vcount >= 284 & vga_in.vcount < 308)begin
             rgb_nxt = 12'h0_0_0;
         // 17 LINIA RAMKA //
-        end else if(((vga_in.hcount >= 368 & vga_in.hcount < 416)|(vga_in.hcount >= 608 & vga_in.hcount < 656)|(vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560))& vga_in.vcount >= 260 & vga_in.vcount < 284)begin
+        end else if(((vga_in.hcount >= 320 & vga_in.hcount < 416)|(vga_in.hcount >= 608 & vga_in.hcount < 656)|(vga_in.hcount >= 464 & vga_in.hcount < 488)|(vga_in.hcount >= 536 & vga_in.hcount < 560))& vga_in.vcount >= 260 & vga_in.vcount < 284)begin
             rgb_nxt = 12'h6_6_6;
         // 17 LINIA WYPEŁNIENIE //
         end else if((vga_in.hcount >= 488 & vga_in.hcount < 536) & vga_in.vcount >= 260 & vga_in.vcount < 284)begin
