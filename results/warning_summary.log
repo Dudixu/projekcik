@@ -1,6 +1,6 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2024-09-01 19:59:32
+Created: 2024-09-01 20:16:11
 
 ----SYNTHESIS----
 WARNING: [Synth 8-5856] 3D RAM board_reg  for this pattern/configuration is not supported. This will most likely be implemented in registers
