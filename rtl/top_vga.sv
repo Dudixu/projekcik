@@ -102,7 +102,6 @@ draw_bg u_draw_bg (
     .vga_in(vga_tim),
     .vga_out(vga_bg)
 );
-
 draw_figure u_draw_figure (
     .clk(clk_75),
     .rst,
@@ -112,7 +111,6 @@ draw_figure u_draw_figure (
     .figure_xy(figure_xy),
     .figure_line(figure_line)
 );
-
 draw_win u_draw_win(
     .clk(clk_75),
     .rst,
@@ -121,7 +119,6 @@ draw_win u_draw_win(
     .black_win(black_win),
     .white_win(white_win)
 );
-
 chess_board u_chess_board(
     .clk(clk_75),
     .rst,
@@ -138,7 +135,6 @@ chess_board u_chess_board(
     .black_win(black_win),
     .white_win(white_win)
 );
-
 figure_move_logic u_figure_move_logic(
     .clk(clk_75),
     .rst,
@@ -150,17 +146,14 @@ figure_move_logic u_figure_move_logic(
     .white_castle(white_castle),
     .black_castle(black_castle)
 );
-
 always_comb begin
     figure_addr = {figure_code, figure_line};
 end
-
 figure_rom u_figure_rom(
     .clk(clk_75),    
     .addr(figure_addr),
     .figure_line_pixels(figure_pixels)
 );
-
 mouse_position u_mouse_position(
     .clk(clk_75),
     .rst,
@@ -179,7 +172,6 @@ mouse_position u_mouse_position(
     .oponent_position(data_in[5:0]),
     .led(led)
 );
-
 always_comb begin
     data_out[6:0] = {pick_place, figure_position};
 end
@@ -202,7 +194,7 @@ MouseCtl u_MouseCtl(
     .sety('0),
     .setmax_x('0),
     .setmax_y('0)
-);
+    );
 
 always_ff @(posedge clk_75) begin
     xpos_buf_out <= xpos_buf_in;
