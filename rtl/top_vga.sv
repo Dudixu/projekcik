@@ -85,7 +85,8 @@
  );
 
 bg_letters u_bg_letters(
-    .vga_in(vga_tim),
+    .hcount(vga_tim.hcount),
+    .vcount(vga_tim.vcount),
     .char_addr(char_addr)
 );
 
@@ -165,7 +166,8 @@ mouse_position u_mouse_position(
     .mouse_ypos(ypos_buf_out),
     .pick_place(pick_place),
     .mouse_position(figure_position),
-    .vga_in(vga_figure),
+    .hcount(vga_figure.hcount),
+    .vcount(vga_figure.vcount),
     .begin_turn(data_in[7]),
     .next_turn(data_out[7]),
     .oponent_pick(data_in[6]),

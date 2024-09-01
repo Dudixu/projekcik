@@ -24,11 +24,12 @@ import vga_pkg::*; (
     input logic        oponent_pick,
     input logic  [5:0] oponent_position,
     input logic        set_player,
+    input logic [10:0] hcount,
+    input logic [10:0] vcount,
     output logic [5:0] mouse_position,
     output logic       pick_place,
     output logic       next_turn,
-    output logic [3:0] led,
-    vga_if.in vga_in
+    output logic [3:0] led // sygnał pomocniczy pokazuje wizualnie w jakim stanie sie znajdujemy
 );
 typedef enum bit [2:0]{
     IDLE        = 3'b000, // czekamy na wybranie figury
@@ -63,7 +64,7 @@ always_ff @(posedge clk) begin : xypos_blk
             begin_turn_spike <= '0;
             player_token <= '1;
         end else begin
-            if(vga_in.hcount == 0 & vga_in.vcount == 0) begin
+            if(hcount == 0 & vcount == 0) begin
                 mouse_pos_buf[5:3] <= (mouse_ypos-128)/64;
                 mouse_pos_buf[2:0] <= (mouse_xpos-256)/64;
                 state    <= state_nxt;
@@ -90,7 +91,7 @@ always_ff @(posedge clk) begin : xypos_blk
                     pick_place <= pick_place_nxt;
                     mouse_position <= mouse_pos_buf;
                 end
-            end else if(vga_in.hcount == 300 & vga_in.vcount == 300)begin
+            end else if(hcount == 300 & vcount == 300)begin
                 if(begin_turn_spike == 1)begin
                     force_turn <= '1;
                     begin_turn_spike <= '0;
@@ -147,6 +148,7 @@ always_ff @(posedge clk) begin : output_blk
                 pick_place_nxt <= '0;
                 your_turn_nxt  <= pick_position == mouse_pos_buf ? '1 : '0;
                 next_turn_nxt  <= !your_turn_nxt;
+                led <= 4'b0001;
             end
             default: begin
 

@@ -75,7 +75,6 @@ top_vga dut (
 initial begin
     force dut.xpos_buf_out = 330;
     force dut.ypos_buf_out = 200;
-    force dut.white_wins = '1;
 end
 
 tiff_writer #(

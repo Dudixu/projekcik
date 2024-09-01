@@ -1,10 +1,9 @@
 Warnings, critical warnings and errors from synthesis and implementation
 
-Created: 2024-09-01 17:16:52
+Created: 2024-09-01 17:44:10
 
 ----SYNTHESIS----
-WARNING: [Synth 8-3848] Net vga_out\.rgb in module/entity vga_timing does not have driver. [rtl/vga_timing.sv:16]
-WARNING: [Synth 8-3936] Found unconnected internal register 'char_line_buf_reg' and it is trimmed from '11' to '4' bits. [rtl/Letters/bg_letters.sv:26]
+WARNING: [Synth 8-3936] Found unconnected internal register 'char_line_buf_reg' and it is trimmed from '11' to '4' bits. [rtl/Letters/bg_letters.sv:27]
 WARNING: [Synth 8-6014] Unused sequential element vsync_reg was removed.  [rtl/Figure/draw_figure.sv:41]
 WARNING: [Synth 8-6014] Unused sequential element vblnk_reg was removed.  [rtl/Figure/draw_figure.sv:42]
 WARNING: [Synth 8-6014] Unused sequential element hcount_reg was removed.  [rtl/Figure/draw_figure.sv:43]
@@ -19,50 +18,6 @@ WARNING: [Synth 8-6014] Unused sequential element set_y.inc_reg was removed.  [r
 WARNING: [Synth 8-6014] Unused sequential element set_y.y_inter_reg was removed.  [rtl/Mouse/MouseCtl.vhd:520]
 WARNING: [Synth 8-3848] Net vga_out\.hblnk in module/entity draw_mouse does not have driver. [rtl/Mouse/draw_mouse.sv:7]
 WARNING: [Synth 8-7129] Port vga_out\.hblnk in module draw_mouse is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vsync in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vblnk in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hsync in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hblnk in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[11] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[10] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[9] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[8] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[7] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[6] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[5] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[4] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[3] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[2] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[1] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[0] in module mouse_position is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vsync in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.vblnk in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hsync in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.hblnk in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[11] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[10] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[9] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[8] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[7] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[6] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[5] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[4] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[3] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[2] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[1] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_in\.rgb[0] in module bg_letters is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[11] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[10] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[9] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[8] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[7] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[6] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[5] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[4] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[3] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[2] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[1] in module vga_timing is either unconnected or has no load
-WARNING: [Synth 8-7129] Port vga_out\.rgb[0] in module vga_timing is either unconnected or has no load
 WARNING: [Synth 8-327] inferring latch for variable 'data_reg' [rtl/Figure/figure_rom.sv:35]
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 
