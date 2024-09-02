@@ -6,7 +6,7 @@
 // Project Name : SZACHY - Projekt zaliczeniowy
 // Target Devices : BASYS3
 // 
-// Description : 
+// Description : Inicializacja planszy, zarządzanie figurami na planszy.
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module chess_board 
@@ -31,7 +31,6 @@ logic piece_already_picked;
     always_ff @(posedge clk) begin
         // INICIALIZACJA PLANSZY ////////////////////////////////////////////////////////////////////////////////////////////////////
         if (rst) begin
-
             // FIGURY //
             board[0] <= {4'hA, 4'h9, 4'h8, 4'hB, 4'hC, 4'h8, 4'h9, 4'hA}; // Figury czarne  1 wiersz
             board[1] <= {4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7, 4'h7}; // Piony czarne 2 wiersz
@@ -42,6 +41,7 @@ logic piece_already_picked;
             board[6] <= {4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1, 4'h1}; // Piony białe 7 wiersz
             board[7] <= {4'h4, 4'h3, 4'h2, 4'h5, 4'h6, 4'h2, 4'h3, 4'h4}; // Figury białe 8 wiersz
             
+            // SYGNAŁY //
             pp_pos <= '0;
             figure_taken <= '0;
             figure_code <= '0;
@@ -56,10 +56,13 @@ logic piece_already_picked;
         end else begin
             if (pick_place == 0 & piece_already_picked == 1) begin
                 pp_pos <= figure_position;
-                if(figure_taken == 4'h1 & figure_position[5:3] == 0)begin             // PIONEK NA KÓÓWKA //
+                // PROMOCJA PIONA //
+                if(figure_taken == 4'h1 & figure_position[5:3] == 0)begin             
                     board[figure_position[5:3]][figure_position[2:0]] <= 4'h5; 
                 end else if(figure_taken == 4'h7 & figure_position[5:3] == 7)begin
                     board[figure_position[5:3]][figure_position[2:0]] <= 4'hB; 
+
+                // ROSZADA BIAŁEGO KRÓLA //
                 end else if(figure_position == 62 & board[7][5] == 4'h0 & board[7][6] == 4'h0 & board[7][7] == 4'h4 & figure_taken == 4'h6 & white_castle == 0)begin
                     board[7][7] <= 4'h0;
                     board[7][6] <= 4'h6;
@@ -73,6 +76,8 @@ logic piece_already_picked;
                     board[7][3] <= 4'h4;
                     board[7][4] <= 4'h0;
                     white_castle <= '1;
+
+                // ROSZADA CZARNEGO KRÓLA //
                 end else if(figure_position == 6 & board[0][5] == 4'h0 & board[0][6] == 4'h0 & board[0][7] == 4'hA & figure_taken == 4'hC & black_castle == 0)begin
                     board[0][7] <= 4'h0;
                     board[0][6] <= 4'hC;
@@ -86,10 +91,16 @@ logic piece_already_picked;
                     board[0][3] <= 4'hA;
                     board[0][4] <= 4'h0;
                     black_castle <= '1;
+
+                // ZWYCIĘSTWO CZARNYCH //
                 end else if(board[figure_position[5:3]][figure_position[2:0]] == 4'h6)begin
                     black_win <= 1;
+
+                // ZWYCIĘSTWO BIAŁYCH //
                 end else if(board[figure_position[5:3]][figure_position[2:0]] == 4'hC)begin
                     white_win <= 1;
+
+                // WPISANIE KODU FIGURY //    
                 end else begin
                     board[figure_position[5:3]][figure_position[2:0]] <= figure_taken; // WPISANIE KODU FIGURY //
                 end    
@@ -103,6 +114,8 @@ logic piece_already_picked;
                 piece_already_picked <= '1;
             end 
         end
+
+        // WPISYWANIE MOŻLIWYCH RUCHÓW DO BOARD //
         if(board[figure_xy[5:3]][figure_xy[2:0]] == 0 & possible_moves[figure_xy] == 1)begin
             figure_code <= 4'hD;
         end

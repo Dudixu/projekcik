@@ -22,7 +22,6 @@ module figure_move_logic
     output logic [63:0] possible_moves         // 64-bitowa maska możliwych ruchów (1 bit na pole planszy)
 );
 
-    // Definicje kolumn i wierszy z pozycji 110010
     logic [2:0] col;
     logic [2:0] row;
     logic [63:0] result;
@@ -35,7 +34,7 @@ always_comb begin
     result = 0;
 
 
-    // RUCHY PIONKA BIAŁEGO //
+    // RUCHY PIONKA BIAŁEGO //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     result[row*8 + col] = 1;
     if(selected_figure == 4'H1)begin
         if(board[row - 1][col] == 4'H0)begin
@@ -51,7 +50,8 @@ always_comb begin
             result[position - 16] = 1;
         end
     end 
-    // RUCHY PIONKA CZARNEGO //
+
+    // RUCHY PIONKA CZARNEGO ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(selected_figure == 4'h7)begin
         if(board[row +1][col] == 4'H0)begin
             result[position + 8] = 1;
@@ -66,10 +66,11 @@ always_comb begin
             result[position + 16] = 1;
         end
     end 
-    // RUCHY GOŃCÓW ( i królowych)//
+    // RUCHY GOŃCÓW I KRÓLOWYCH ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
     if(selected_figure == 4'h2 | selected_figure == 4'h8 | selected_figure == 4'h5 | selected_figure == 4'hB)begin
-        // prawy dół //
+       
+        // PRAWY DÓŁ //
         for(int i = 1; i < 8; i++)begin
             if(col + i < 8 & row + i < 8 & board[row + i][col +i] == 0)begin
                 result[(row + i) * 8 + (col + i)] = 1;
@@ -87,7 +88,8 @@ always_comb begin
                 break;
             end
         end
-        // lewy dól //
+
+        // LEWY DÓŁ //
         for(int i = 1; i < 8; i++)begin
             if(col == 0)begin
                 break;
@@ -110,7 +112,8 @@ always_comb begin
                 break;
             end
         end 
-        // prawa góra //
+
+        // PRAWA GÓRA //
         for(int i = 1; i < 8; i++)begin
             if(row == 0)begin
                 break;
@@ -133,7 +136,8 @@ always_comb begin
                 break;
             end
         end
-        // lewa góra //
+
+        // LEWA GÓRA //
         for(int i = 1; i < 8; i++)begin
             if(col == 0 | row == 0)begin
                 break;
@@ -157,8 +161,10 @@ always_comb begin
             end
         end
     end     
-    // RUCHY WIEŻ ( i Królowych) //
+
+    // RUCHY WIEŻ I KRÓLOWYCH /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(selected_figure == 4'h4 | selected_figure == 4'hA | selected_figure == 4'h5 | selected_figure == 4'hB)begin 
+        
         // GÓRA //
         for(int i = 1; i < 8; i++)begin
             if(row - i >= 0 & board[row-i][col] == 0)begin
@@ -180,7 +186,8 @@ always_comb begin
                 break;
             end
         end
-        // dół //
+
+        // DÓŁ //
         for(int i = 1; i < 8; i++)begin
             if(row + i < 8 & board[row+i][col] == 0)begin
                 result[(row + i) * 8 + col] = 1;
@@ -201,6 +208,7 @@ always_comb begin
                 break;
             end
         end
+
         // LEWO // 
         for(int i = 1; i < 8; i++)begin
             if(col - i >= 0 & board[row][col - i] == 0)begin
@@ -245,7 +253,8 @@ always_comb begin
             end
         end
     end
-    // RUCHY KONIA BIAŁEGO //
+
+    // RUCHY BIAŁEGO KONIA /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(selected_figure == 4'h3)begin
         if((board[row - 2][col + 1] == 4'h0 | board[row - 2][col + 1] > 4'h6) & row >= 2 & col < 7)begin
             result[(row - 2)*8 + col + 1] = 1;
@@ -272,7 +281,8 @@ always_comb begin
             result[(row + 1)*8 + col - 2] = 1;
         end
     end
-    // RUCHY CZAO KONIA //    
+
+    // RUCHY CZARNEGO KONIA //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     if(selected_figure == 4'h9)begin
         
         if((board[row - 2][col + 1] == 4'h0 | board[row - 2][col + 1] < 4'h7)& row >= 2 & col < 7)begin
@@ -300,7 +310,8 @@ always_comb begin
             result[(row + 1)*8 + col - 2] = 1;
         end
     end
-    //bialy król//
+
+    // BIAŁY KRÓL ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(selected_figure == 4'h6)begin
         
         if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] > 4'h6)begin
@@ -333,11 +344,10 @@ always_comb begin
         if(position == 60 & board[7][1] == 4'h0 & board[7][2] == 4'h0 & board[7][3] == 4'h0 & board[7][0] == 4'h4 & white_castle == 0)begin
             result[58] = 1;
         end
-    end    
-    // czarny król //
-    if(selected_figure == 4'hC)begin
+    end  
 
-        
+    // CZARNY KRÓL /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if(selected_figure == 4'hC)begin
         if(board[row - 1][col + 1] == 4'h0 | board[row - 1][col + 1] < 4'h7)begin
             result[(row - 1)*8 + col + 1] = 1;
         end 
@@ -369,6 +379,8 @@ always_comb begin
             result[6] = 1;
         end
     end
+
+    // NIC NIE JEST PODNIESIONE ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(pick_piece == 0 )begin
         result = 0;
     end

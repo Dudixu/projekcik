@@ -29,7 +29,7 @@ import vga_pkg::*; (
     output logic [5:0] mouse_position,
     output logic       pick_place,
     output logic       next_turn,
-    output logic [3:0] led // sygnał pomocniczy pokazuje wizualnie w jakim stanie sie znajdujemy
+    output logic [3:0] led                 // sygnał pomocniczy pokazuje wizualnie w jakim stanie sie znajdujemy
 );
 typedef enum bit [2:0]{
     IDLE        = 3'b000, // czekamy na wybranie figury
